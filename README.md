@@ -3,6 +3,6 @@ A project management system web application for students to manage their B-Tech 
 
 
 Members: 1. Sudhanshu Jena
-          2. Tejas Mnjrekar
-          3. Ishan Bhagat
-          4. Abhishek Jadhav
+         2. Tejas Manjrekar
+         3. Ishan Bhagat
+         4. Abhishek Jadhav
