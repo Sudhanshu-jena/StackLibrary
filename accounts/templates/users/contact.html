@@ -1,0 +1,42 @@
+{% extends "users/base.html" %}
+<script src="static/js/scripts.js"></script>
+{% block content %}
+
+<div class="section full-height">
+  <div class="absolute-center">
+    <div class="container my-3 ">
+      <h3>Contact to Admin</h3>
+      <form action="/contact/" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" name="name"aria-describedby="name">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" class="form-control" id="phone" name="phone">
+        </div>
+
+        <div class="form-group">
+          <label for="content">Describe your issue :</label>
+          <textarea class="form-control" name="content" id="content" cols="30" rows="5"></textarea>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+
+  </div>
+</div>
+
+
+{% endblock content %}

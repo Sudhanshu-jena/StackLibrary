@@ -1,0 +1,42 @@
+{% extends "users/base.html" %}
+{% block content %}
+
+{% if user.is_authenticated  %}
+
+
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="card-title"><i class="fa fa-qrcode"></i> Projects</h5>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url 'request_project'  %}" class="btn btn-success bg-gradient float-end">Request Project</a>
+                    </div>
+                </div>
+                <hr>
+                {% for enroll in enrolls %}
+                {% for team in teams %}
+                {% if team.id == enroll.team_id %}
+                {% for member in team.members.all %}
+                {% if member == user %}
+
+                <div class="row">
+                    <div class="col-sm">
+                        <h6>Project Name:</h6> <h7 class="text-primary text-uppercase">{{ enroll.project }}</h7>
+                        <a href="{% url 'student_detail_view' enroll.project_id  %}" class="btn btn-primary bg-gradient float-end">View Project</a>
+                    </div>
+                </div>
+                </br>
+
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+
+{% endif %}
+{% endblock content %}

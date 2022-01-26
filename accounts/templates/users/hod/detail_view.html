@@ -1,0 +1,153 @@
+{% extends "users/base.html" %}
+{% block content %}
+{% if user.is_authenticated and user.is_hod %}
+
+<div class="col-12">
+    <div class="card mx-2 mt-2">
+        <div class="card-body">
+            <div class="row">
+                <!--<h6><a class="text-dark" href="{{ x.slug }}">{{ x }}</a></h6>-->
+                <div class="col-8">
+                    <h2 class="text-primary">{{ data.project_name }}</h2> <h9 class="text-success">Department-{{ data.department }}</h9>
+                    <h6>Description</h6>
+                    <h7 class="text-dark">{{ data.project_description }}</h7>
+                </div>
+
+            </div>
+            <hr>
+
+            <div class="row">
+                {% with data.id as name %}
+                {% for x in enroll %}
+                {% if x.project_id == name %}
+                <div class="col-12">
+                <h5 class="card-title text-primary">Enrollment details</h5>
+                    <h7 class="">Project assigned to:<h7 class="text-muted"> {{x.team}}</h7>
+<!--                    <h7 class="text-muted"> {{x.team}}, {{x.batch}} batch On <h7 class="text-success"> {{x.date_enrolled}}</h7>-->
+<!--                    </h7>-->
+                </h7>
+
+<!--                <h7 class="">Guide: <h7 class="text-muted">{% for guide in x.guide_or_industry_mentor.all %} {{guide}} {% endfor %}</h7></h7>-->
+                    </div>
+                <div class="col-12">
+                <a href="{% url 'hod_enroll_details' x.id %}" class="btn btn-info bg-gradient float-end">View full details</a>
+                 </div>
+
+            </div><hr>
+                <h5 class="card-title text-primary">Tasks</h5>
+            <div class="row">
+
+
+
+
+                {% for y in task %}
+                {% if y.project_id == name %}
+                <div class="col-12">
+                <h5 class="">{{ y.task_name }}</h5>
+                <h7 class="text-muted"> {{y.task_description}}</h7>
+
+                </div>
+
+
+
+
+
+
+                {% endif %}
+                {% endfor %}
+                </div><hr>
+            <div class="row">
+                <div class="col-6">
+                    <h6 class="text-muted">Planned Task (in days)</h6>
+
+                    <canvas id="myChart" width="100" height="100"></canvas>
+                    <script>
+
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+<!--        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'black'],-->
+labels: {{labels|safe}},
+        datasets: [{
+            label: '# of Votes',
+            data: {{datax|safe}},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+
+});
+
+</script>
+                </div>
+                <div class="col-6">
+                    <h6 class="text-muted"> Completed Task ({{percentage}} % completed)</h6>
+
+                    <canvas id="myChart1" width="100" height="100"></canvas>
+                    <script>
+
+const ctx2 = document.getElementById('myChart1').getContext('2d');
+const myChart1 = new Chart(ctx2, {
+    type: 'pie',
+    data: {
+
+labels: {{labels1|safe}},
+        datasets: [{
+            label: '# of Votes',
+            data: {{datax1|safe}},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+
+});
+
+</script>
+                </div>
+            </div>
+                {% else %}
+
+
+
+                {% endif %}
+                {% endfor %}
+                {% endwith %}
+            </div><hr>
+
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% endblock content %}

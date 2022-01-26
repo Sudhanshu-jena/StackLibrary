@@ -1,0 +1,79 @@
+{% extends "users/base.html" %}
+{% block content %}
+{%load static %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top" width="40" height="150"  src="{% static 'img/student.png' %}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Student</h5>
+                    <h6 class="card-text">Students will solve the tasks/issues and upload their files and codes to verify.</h6>
+                    <a href="{% url 'student_register' %}" class="btn btn-primary">Create Account</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" >
+                <img class="card-img-top" width="40" height="150"  src="{% static 'img/guide.jpg' %}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Guide</h5>
+                    <h6 class="card-text">Guide will verify the uploaded solution and will guide the student for a better outcome.</h6>
+                    <a href="{% url 'guide_register' %}" class="btn btn-primary">Create Account</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" >
+                <img class="card-img-top" width="40" height="150"  src="{% static 'img/guide1.png' %}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Industry Mentor</h5>
+                    <h6 class="card-text">Industry Mentor will verify the uploaded solution and will guide the student for a better outcome.</h6>
+                    <a href="{% url 'industry_mentor_register' %}" class="btn btn-primary">Create Account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top" width="40" height="150"  src="{% static 'img/project1.png' %}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Coordinator</h5>
+                    <h6 class="card-text">Will have access to allocate students, guide, Industry Mentor to a project.</h6>
+                    <a href="{% url 'coordinator_register' %}" class="btn btn-primary">Create Account</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top" width="40" height="150"  src="{% static 'img/project2.jpg' %}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Project Creator</h5>
+                    <h6 class="card-text">Project creator will create projects and will add tasks/issues for the respective project.</h6>
+                    <a href="{% url 'project_creator_register' %}" class="btn btn-primary">Create Account</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top" width="40" height="150"  src="{% static 'img/hod.jpg' %}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Head of Department</h5>
+                    <h6 class="card-text">HOD can view all the details of a project like details of members working on the project.</h6>
+                    <a href="{% url 'hod_register' %}" class="btn btn-primary">Create Account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock content %}

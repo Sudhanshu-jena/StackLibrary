@@ -1,0 +1,70 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if user.is_authenticated and user.is_coordinator %}
+
+<div class="card border-primary">
+    <div class="card-body">
+        <div class="main">
+
+            <h3 class="text-primary">Task: <h5 class="text-primary">{{ task.status_set.first.task }}</h5></h3><hr>
+
+            Description: {{ task.task_description }}<hr>
+
+
+            <h5>Status: <h6 class="text-muted">{{ task.status_set.first.get_status_display }}</h6></h5>
+            <h5>Submission: <h6 class="text-muted">{{ task.status_set.first.submission }}</h6></h5>
+            {{ task.status_set.first.today }}
+            <h7>Progress duration: <h8 class="text-success">{{ task.status_set.first.task_start_date }}-{{ task.status_set.first.task_end_date }}</h8></h7>
+            <hr>
+
+
+        </div>
+        <div class="col-6">
+                    <h6 class="text-muted"> Users Interaction</h6>
+
+                    <canvas id="myChart" width="400" height="400"></canvas>
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: {{labels|safe}},
+        datasets: [{
+            label: 'Comments & Replies',
+            data: {{data|safe}},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+                </div>
+
+    </div>
+</div>
+
+{% endif %}
+{% endblock content %}

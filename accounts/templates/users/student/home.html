@@ -1,0 +1,121 @@
+{% extends "users/base.html" %}
+{% block content %}
+
+{% if user.is_authenticated  %}
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <table class="table table-responsive-sm table-hover table-outline mb-2 ">
+                <thead class="thead-light">
+                <tr>
+                    <th class="text-center"><i class="fa fa-user"></i></th>
+                    <th>Student Name</th>
+                    <th>Activity</th>
+                    <th class="text-center">View Profile</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% if user.is_student %}
+                <tr>
+                    <td class="text-center">
+                        <div class="avatar">
+                            <img class="rounded-circle" width="40" height="40" src="{{ user.student.image.url }}">
+                            <span class="avatar-status badge-success"></span>
+                        </div>
+                    </td>
+                    <td>
+                        {% if user.get_full_name %}
+                        <div>{{ user.get_full_name }}{% if user.is_student %} <span class="badge badge-pill badge-dark"></span> {% endif %}</div>
+                        {% else %}
+                        <div>{{ user.username }}{% if user.is_student %} <span class="badge badge-pill badge-dark"></span> {% endif %}</div>
+                        {% endif %}
+                        <div class="small text-muted">
+                            <span>Department:</span><span class="small text-success"> {{ user.student.department }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="small text-muted">
+                            <span>Joined:</span> {{ user.date_joined }}
+                        </div>
+                        <div class="small text-muted"><span>Last login:</span> {{ user.last_login }}
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'student_profile' %}" class="btn btn-dark bg-gradient "><i class="fa fa-id-card"></i></a>
+                    </td>
+                </tr>
+                {% endif %}
+
+                </tbody>
+            </table>
+        </div>
+        <hr style="height:5px;background-color:#000000" class="rounded">
+        <div class="card border-success">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="card-title text-success"><i class="fa fa-qrcode"></i> Projects</h5>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url 'request_project'  %}" class="btn btn-success bg-gradient float-end">Request Project</a>
+                    </div>
+                </div>
+                <hr>
+                {% for enroll in enrolls %}
+                {% for team in teams %}
+                {% if team.id == enroll.team_id %}
+                {% for member in team.members.all %}
+                {% if member == user %}
+
+                <div class="row">
+                    <div class="col-sm">
+                        <h6>Project Name:</h6> <h7 class="text-muted text-uppercase">{{ enroll.project }}</h7>
+                        <a href="{% url 'student_detail_view' enroll.project_id  %}" class="btn btn-outline-primary bg-gradient float-end">View Project</a>
+                    </div>
+                </div>
+                </br>
+
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div></br>
+        <div class="card border-danger">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="card-title text-danger"><i class="fa fa-users"></i> Teams</h5>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url 'student_team_create'  %}" class="btn btn-danger bg-gradient float-end">Create a Team</a>
+                    </div>
+                </div>
+                <hr>
+                {% for team in teams %}
+                {% for member in team.members.all %}
+                {% if member == user %}
+
+                <div class="row">
+                    <div class="col-sm">
+                        <h6>Team Name:</h6><h7 class="text-muted"> {{ team }}</h7>
+                        <a href="{% url 'view_team' team.id  %}" class="btn btn-outline-info bg-gradient float-end">Team Details</a>
+                    </div>
+                </div>
+                </br>
+
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div></br>
+
+
+    </div>
+</div>
+</br>
+{% endif %}
+{% endblock content %}

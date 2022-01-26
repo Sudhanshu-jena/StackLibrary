@@ -1,0 +1,26 @@
+{% extends "users/base.html" %}
+{% block content %}
+
+{% if user.is_authenticated and user.is_coordinator %}
+<div class="card">
+    <div class="card-body">
+        {% for x in obj %}
+        <div class="row">
+
+            <div class="col-sm">
+                <h5 class="card-title">{{x.requested_project}}</h5>
+
+                <h6>Requested by: <span class="text-success">{{x.team}}, </span> <span class="text-success">{{x.batch}} Batch</span></h6>
+            </div>
+            <div class="col-sm">
+
+                <a href="{% url 'coordinator_enroll_project' x.id %}" class="btn btn-primary">Enroll</a>
+            </div>
+
+        </div><hr>
+        {% endfor %}
+    </div>
+</div></br>
+
+{% endif %}
+{% endblock content %}

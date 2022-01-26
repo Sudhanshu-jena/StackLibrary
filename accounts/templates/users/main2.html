@@ -1,0 +1,70 @@
+{% extends "users/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="center">
+        <div class="section">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-12">
+                        <h4><strong>“A project management system web application for students to manage their B-Tech projects”</strong> </h4><hr>
+
+                        <h5>  Terna Engineering College, Nerul
+                        Computer Engineering Department </h5><br><hr>
+                        <strong>Presented by -<br>
+                        Mr. Sudhanshu Jena               	TUS3F171852<br>
+                        Mr. Ishan Bhagat             	    	TUS3F171829<br>
+                        Mr. Tejas Manjrekar                	TUS3F171859<br>
+                        Mr. Abhishek Jadhav                     TUS3F171802<br><hr>
+                        Group ID: PHI–CS-41
+                        Under the Guidance of -
+                            Prof. Dnyaneshwar Bavkar</strong>
+                        <br><hr>
+                        <h7>
+
+                            <strong>Project Summary:</strong>
+                        In this project we will build a website to manage projects with proper authorization and authentication.
+                        The application will have six types of users:
+                        1. Students
+                        2. Guide
+                        3. Head of Department
+                        4. Industry Mentors
+                        5. Department project coordinators
+                        6. Project Creator
+                        <br><hr>
+                            <strong>Project Requirements/Features:</strong>
+                        All users can have a login/register page and an account details page where they can see or can change their account details. A Home page where the list of all projects will be visible.
+                        On the website projects will be available batch wise like 2021, 2022. In 2021 some projects were created, these projects will be available for the 2022 batch students, and so on and some extra projects can be created too. These projects will be allocated to the students by the department project coordinator.
+                        <br><hr>
+                            <strong>Project Creator:</strong>
+                        ·   	After login, Project creator will create a project which will be later allocated to the students by the department project coordinator.
+                        ·   	Project creator will add tasks/issues for the respective project.
+                        <br><hr>
+                            <strong>Guide:</strong>
+                        ·   	Guide will be allocated to a project by the department project coordinator
+                        ·   	Guide will verify the uploaded solution and will guide the student for a better outcome.
+                        <br><hr>
+                            <strong>Student:</strong>
+                        ·   	After login for the first time students will form a team on the website. Leader will request the project from the list of projects available.
+                        ·   	After allocation of projects by the project coordinator, when they login to the site they will navigate to my project page where they will get tasks/issues available in that project.
+                        ·   	Students will solve the tasks/issues and after solving they can upload their files and codes to verify by the guide or industry mentor and can later view the uploaded files in the repository section.
+                        <br><hr>
+                            <strong>Head of Department:</strong>
+                        ·   	HOD can view all the details of a project like details of members working on the project. Guide allocated/selected for the projects and can also view how much progress made by the group.
+                        <br><hr>
+                            <strong>Industry Mentor:</strong>
+                        ·   	They have the same access as a guide. The final verification of a task will be done by Industry Mentors.
+                        <br><hr>
+                            <strong>Department project coordinator:</strong>
+                        ·   	Will have access to allocate students, guide, Industry Mentor to a project and examine whether everything is going smoothly or not.
+                        <br> </h7>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div><hr>
+<a href="{% url 'main' %}" class="btn btn-info bg-gradient float-end">Back to main page</a>
+
+{% endblock content %}

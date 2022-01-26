@@ -1,0 +1,11 @@
+{% extends "users/base.html" %}
+{% block content %}
+<div class="section full-height">
+    <div class="absolute-center">
+        {% if user.is_authenticated %}
+        <h1>Welcome to Page {{ user.username }}</h1>
+
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

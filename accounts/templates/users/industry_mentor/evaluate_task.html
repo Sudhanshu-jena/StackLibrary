@@ -1,0 +1,219 @@
+{% extends "users/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% load extras %}
+{% block content %}
+{% if user.is_authenticated and user.is_industry_mentor %}
+
+<div class="card">
+    <div class="card-body">
+        <div class="main">
+            <h2 class="text-primary text-uppercase">{{ task.project }}</h2>
+
+            <h4 class="">Task: <h5 class="text-muted">{{ task.status_set.first.task }}</h5></h4><hr>
+
+            {{ task.description | safe }}<hr>
+            <div class="row">
+                <div class="col-12">
+                    <h5>Status: <h6 class="text-muted">{{ task.status_set.first.get_status_display }}</h6></h5>
+            <h5>Submission: <h6 class="text-muted">{{ task.status_set.first.submission }}</h6></h5>
+            {% if task.status_set.first.submission_file %}
+            <h6 class="text-muted">Document submitted by student:
+
+                <a href={{task.status_set.first.submission_file.url}} download> {{ task.status_set.first.submission_file }}</a></h6></br>
+            {%else%}
+            <h6 class="text-muted">Document submitted by student: Not Yet</h6>
+            {%endif%}
+            <h7>Progress duration: <h8 class="text-success">{{ task.status_set.first.task_start_date }}-{{ task.status_set.first.task_end_date }}</h8></h7>
+            <!-- Button trigger modal --></br>
+
+                </div>
+                <div class="col-10">
+                    <a href="" type="button" class="btn btn-primary bg-gradient float-end" data-toggle="modal" data-target="#exampleModal">
+                Update Status
+            </a>
+
+                </div>
+                <div class="col-2">
+                    <a href="" type="button" class="btn btn-danger bg-gradient float-start" data-toggle="modal" data-target="#exampleModal1">
+                Edit Status
+            </a>
+
+                </div>
+            </div>
+
+
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update Task Status</h5>
+                            <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <form method="POST">
+                        <div class="modal-body">
+                            {% csrf_token %}
+                            <h7>Duration: <h8 class="text-success">{{ task.status_set.first.task_start_date }} <h8 class="text-dark">to</h8> {{ task.status_set.first.task_end_date }}</h8></h7>
+                            {{u_form|crispy}}
+                        </div>
+                        <div class="modal-footer">
+<!--                            <button type="button" class="btn btn-danger bg-gradient" data-dismiss="modal">Close</button>-->
+                            <button type="submit" class="btn btn-success bg-gradient">Edit</button>
+                        </div>
+                            </form>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel1">Edit Task Status</h5>
+                            <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <form method="POST">
+                        <div class="modal-body">
+                            {% csrf_token %}
+                            <h7>Duration: <h8 class="text-success">{{ task.status_set.first.task_start_date }} <h8 class="text-dark">to</h8> {{ task.status_set.first.task_end_date }}</h8></h7>
+                            {{form|crispy}}
+                        </div>
+                        <div class="modal-footer">
+<!--                            <button type="button" class="btn btn-danger bg-gradient" data-dismiss="modal">Close</button>-->
+                            <button type="submit" class="btn btn-success bg-gradient">Edit</button>
+                        </div>
+                            </form>
+
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+
+
+        </div>
+    </div>
+</div></br>
+{% if task.status_set.first.submission == 'Approved' %}
+</br><div class="card">
+    <div class="card-body">
+
+ <h6 class="text-success text-center">
+     Task is Approved by You.
+</h6>
+    </div>
+</div>
+{% else %}
+
+
+
+<div class="card">
+    <div class="card-body">
+
+
+        <div class="container">
+
+            {% for comment in comments %}
+            <div class="row my-3">
+                <div class="col-md-1 ">
+                    <h3>.</h3>
+                    <!--                            <img class="rounded mx-auto d-block w-75 my-2 border border-dark p-2" src="/static/img/user.png" alt="user">-->
+                </div>
+
+                <div class="col-md-11 ">
+                    {% if comment.user.is_guide %}
+                    <b>Guide: </b>
+                    {% elif comment.user.is_industry_mentor%}
+                    <b>Industry Mentor: </b>
+                    {% elif comment.user.is_student%}
+                    <b>Student: </b>
+                    {% endif %}
+                    {{comment.user.first_name}}  <span class="text-muted ">{{comment.timestamp|naturaltime}}</span>
+                    <div class="reply mx-0">
+                        <div>   {{comment.comment}} </div>
+
+                        <button class="btn btn-sm btn-outline-primary " type="button" data-toggle="collapse" data-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="replyBox{{comment.sno}}">
+                            Reply
+                        </button>
+                        <div class="collapse" id="replyBox{{comment.sno}}">
+                            <div class="card card-body my-2">
+                                <form action="{% url 'task_comment_guide' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <h5 class="text-success text-uppercase">Post a reply</h5>
+                                        <textarea rows="4" cols="50" name="comment" placeholder="Enter comment here"></textarea>
+                                        <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                                    </div>
+                                    <input type="hidden" name="task_id" value="{{task.id}}" >
+                                    <button type="submit" class="btn btn-outline-success float-end">Reply</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="replies my-2 ">
+                            {% for reply in replyDict|get_val:comment.sno %}
+                            <div class="row my-2">
+                                <div class="col-md-1 ">
+                                    <h4>-</h4>
+                                    <!--                            <img class="rounded mx-auto d-block w-75 my-2 border border-dark p-2" src="/static/img/user.png" alt="user">-->
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="col-md-11 ">
+                                        <b>Replied by </b>
+                                        {% if reply.user.is_guide %}
+                                        <b>Guide: </b>
+                                        {% elif reply.user.is_industry_mentor%}
+                                        <b>Industry Mentor: </b>
+                                        {% elif reply.user.is_student%}
+                                        <b>Student: </b>
+                                        {% endif %}
+                                        {{reply.user.first_name}} <span class="text-muted ">{{reply.timestamp| naturaltime}}</span>
+                                        <div class="text-muted">{{reply.comment}}</div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--                            <h6 class="text-dark"><b>Replied by </b> </h6>-->
+                            <!--                            <h7 class="text-muted">{{reply.comment}}</h7>-->
+                            <br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="my-2">
+                {% if user.is_authenticated %}
+                <form action="{% url 'task_comment_guide' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <h5 class="text-success text-uppercase"> Review Submission</h5>
+                        <textarea rows="4" cols="50" name="comment" placeholder="Enter comment here"></textarea>
+                    </div>
+                    <input type="hidden" name="task_id" value="{{task.id}}" >
+                    <input type="hidden" name="parentSno" value="">
+                    <button type="submit" class="btn btn-outline-success float-end">Submit</button>
+                </form>
+                {% else %}
+                Please login to post a comment
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+
+
+{% endif %}
+
+{% endblock content %}

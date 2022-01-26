@@ -1,0 +1,18 @@
+{% extends "users/base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% if user.is_authenticated and user.is_student %}
+
+<div class="card">
+    <div class="card-body">
+<h5 class="text-primary text-uppercase">Important Message </h5><hr>
+ <h6 class="text-muted">   The Project will available in one or two days if coordinator assigned it to your team.
+     <h6 class="text-danger">If not contact your department coordinator or request another project.</h6>
+     <h6 class="text-muted">Look for The Project on <b>Dashboard</b> or <b>Project</b> Page.</h6>
+</h6>
+    </div>
+</div>
+
+
+{% endif %}
+{% endblock content %}

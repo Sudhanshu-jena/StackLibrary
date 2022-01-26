@@ -1,0 +1,52 @@
+{% load static %}
+
+
+    {% if user.is_authenticated %}
+
+    <div class="container fixed-bottom ">
+        <div class="copyright col-12 text-end text-dark">
+            &copy; <strong><span>Stack Library</span></strong><span class="text-muted"> 2022</span>, designed with <i class="fa fa-heart text-danger"> </i> by StackLibrary™
+        </div>
+    </div>
+
+    {% else %}
+<footer class="page-footer bg-dark font-small special-color-dark pt-4">
+    <div class="footer-top text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 footer-contact text-secondary">
+                    <h4 class="text-uppercase font-weight-bold text-primary">Stack Library</h4>
+                    We provide best software-based solutions.
+                    </br> Known as <strong>developer freaks!!</strong>
+                </div>
+                <div class="col-lg-3 col-md-6 footer-links text-secondary">
+                    <h5 class="text-light text-uppercase">Our Work Place</h5>
+                    A108 Altamount, BKC  <br>
+                     400051, Mumbai <br> INDIA
+                </div>
+                <div class="col-lg-3 col-md-6 footer-links text-secondary">
+                    <h5 class="text-light text-uppercase">Need Help</h5>
+                    <strong>Phone:</strong> +91 97894 55488 <br>
+                    <strong>Email:</strong> stack@library.com<br>
+                </div>
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h5 class="text-light text-uppercase">Our Social Networks</h5>
+                    <div class="social-links mt-3 row">
+                        <a href="#" class="twitter col-2"><i class="fa fa-twitter fa-lg text-secondary  fa-2x"></i></a>
+                        <a href="#" class="facebook col-2"><i class="fa fa-facebook fa-lg text-secondary  fa-2x"></i></a>
+                        <a href="#" class="instagram col-2"><i class="fa fa-instagram fa-lg text-secondary  fa-2x"></i></a>
+                        <a href="#" class="google-plus col-2"><i class="fa fa-skype fa-lg text-secondary  fa-2x"></i></a>
+                        <a href="#" class="linkedin col-3"><i class="fa fa-linkedin fa-lg text-secondary  fa-2x"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div><hr class="text-light">
+    <div class="container">
+        <div class="copyright col-12 text-center text-muted">
+            &copy; <strong><span>Stack Library</span></strong><span class="text-muted"> 2022</span>, designed with <i class="fa fa-heart text-danger"> </i> by StackLibrary™
+        </div>
+    </div>
+    </footer>
+    {% endif %}
