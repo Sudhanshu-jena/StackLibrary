@@ -150,13 +150,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-AWS_ACCESS_KEY_ID = 'AKIA5FC6GVQPMSJW5NE7'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'stack-2library'
+AWS_ACCESS_KEY_ID = 'IAM _ACCESS_KEY_ID'
+AWS_SECRET_ACCESS_KEY = 'IAM AWS_SECRET_ACCESS_KEY'
+AWS_STORAGE_BUCKET_NAME = 'Your bucket name'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_S3_REGION_NAME = 'us-east-2'
+AWS_S3_REGION_NAME = 'us-east-2' #bucket REGION_NAME
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 
 # AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -178,8 +178,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'mayurmandavkar444@gmail.com'
-EMAIL_HOST_PASSWORD = 'Mandkar@444'
+EMAIL_HOST_USER = 'Your mail id'
+EMAIL_HOST_PASSWORD = 'Your mail password'
 
 django_heroku.settings(locals())
 
