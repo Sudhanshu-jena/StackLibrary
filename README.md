@@ -1,4 +1,4 @@
-# StackLibrary, PMS, Project Management System, Django AWS, SendGrid, Python
+# StackLibrary, PMS, Project Management System, Django, AWS, SendGrid, Python
 A project management system web application for students to manage their B-Tech projects.
 
 
