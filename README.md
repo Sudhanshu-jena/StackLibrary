@@ -12,7 +12,7 @@ In settings.py, kye and password fields are edited instead of real value for sec
 
 If you are hosting the application, to use email handling works on the app instead of SMTP use SendGrid or some other email handling API site for this.
 
-For example, You have to add or change only these fields in settings.py
+For example, You have to add or change only follwoing fields in settings.py 
 
 SENDGRID_API_KEY = 'SENDGRID_API_KEY from sendgrid site'
 
@@ -25,6 +25,8 @@ EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 EMAIL_PORT = 587
 
 EMAIL_USE_TLS = True
+
+And in StackLibrary/accounts/views/email_handler.py at line no 25 write your Mail Id.
 
 If you are working on localhost then the given settings.py is sufficient to work on.
 
