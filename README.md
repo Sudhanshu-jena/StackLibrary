@@ -10,7 +10,7 @@ Members: 1. Sudhanshu Jena
 
 In settings.py, kye and password fields are edited instead of real value for security purposes.
 
-If you are hosting the application, to use email handling works on the app instead of SMTP use SendGrid or some other email handling API site for this.
+If you are hosting the application, to use email handling works on the app use SendGrid or some other email handling API sites instead of SMTP.
 
 For example, You have to add or change only follwoing fields in settings.py 
 
