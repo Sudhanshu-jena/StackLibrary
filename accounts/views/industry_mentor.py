@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 from ..forms import *
-from verify_email.email_handler import send_verification_email
+from .email_handler import send_verification_email
 
 
 def industry_mentor_login(request):

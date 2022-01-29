@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from ..forms import *
-from verify_email.email_handler import send_verification_email
+from .email_handler import send_verification_email
 
 
 def hod_login(request):

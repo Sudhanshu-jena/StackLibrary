@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from ..forms import *
-from verify_email.email_handler import send_verification_email
+from .email_handler import send_verification_email
 
 
 def new_project(request):
