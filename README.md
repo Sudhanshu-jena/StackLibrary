@@ -1,4 +1,4 @@
-# StackLibrary
+# StackLibrary, PMS, Project Management System, Django AWS, SendGrid, Python
 A project management system web application for students to manage their B-Tech projects.
 
 
@@ -6,3 +6,26 @@ Members: 1. Sudhanshu Jena
          2. Tejas Manjrekar
          3. Ishan Bhagat
          4. Abhishek Jadhav
+
+
+In settings.py, kye and password fields are edited instead of real value for security purposes.
+
+If you are hosting the application, to use email handling works on the app instead of SMTP use SendGrid or some other email handling API site for this.
+
+For example, You have to add or change only these fields in settings.py
+
+SENDGRID_API_KEY = 'SENDGRID_API_KEY from sendgrid site'
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+
+EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True
+
+If you are working on localhost then the given settings.py is sufficient to work on.
+
+
