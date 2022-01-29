@@ -1,18 +1,20 @@
-# StackLibrary, PMS, Project Management System, Django, AWS, SendGrid, Python
+# StackLibrary
 A project management system web application for students to manage their B-Tech projects.
 
-
-Members: 1. Sudhanshu Jena
-         2. Tejas Manjrekar
-         3. Ishan Bhagat
-         4. Abhishek Jadhav
-
-
+## Project # tags:
+StackLibrary, PMS, Project Management System, Django, AWS, SendGrid, Python
+## Members: 
+1. Sudhanshu Jena
+2. Tejas Manjrekar
+3. Ishan Bhagat
+4. Abhishek Jadhav
+## Note
+### Changes in settings.py
 In settings.py, kye and password fields are edited instead of real value for security purposes.
 
 If you are hosting the application, to use email handling works on the app use SendGrid or some other email handling API sites instead of SMTP.
 
-For example, You have to add or change only follwoing fields in settings.py 
+For example, You have to add or change only the following fields in settings.py 
 
 SENDGRID_API_KEY = 'SENDGRID_API_KEY from sendgrid site'
 
