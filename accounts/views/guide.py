@@ -65,9 +65,11 @@ def guide_evaluate(request, id):
         fm = form.save()
         fm.today = datetime.now()
         fm.save()
-        um = u_form.save
-        um.today = datetime.now()
-        um.save()
+
+        return redirect(f"/guide_task_evaluate/56184984165484984981{task.id}4562984656519847")
+    if u_form.is_valid():
+        u_form.save()
+
         return redirect(f"/guide_task_evaluate/56184984165484984981{task.id}4562984656519847")
     replyDict = {}
     for reply in replies:
