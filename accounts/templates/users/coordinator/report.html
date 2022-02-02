@@ -1,0 +1,487 @@
+{% extends "users/base.html" %}
+{% block content %}
+{% if user.is_authenticated and user.is_coordinator %}
+
+
+{% with user.coordinator.department as department %}
+<style>
+table, th, td {
+  border:1px solid black;
+}
+table {
+  width: 100%;
+}
+</style>
+<div class="card" >
+    <div class="card-body">
+        <div class="row">
+            <div class="col-9">
+                <h5 class="card-title text-uppercase text-success">Users of {{user.coordinator.department}} Department:</h5>
+            </div>
+            <div class="col-3">
+                <div class="btn-group float-end">
+                    <button type="button" class="btn btn-transparent dropdown-toggle p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-cog text-primary"> User Info</i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Students</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal1">Guides</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal2">Industry Mentors</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal3">HOD</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal4">Projects</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal5">Teams</a>
+                    </div>
+                </div>
+
+                <div class="modal fade" role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-uppercase" id="exampleModalLabel"> {{user.coordinator.department}} Department Students</h5>
+                                <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table>
+                                    <tr>
+                                        <th>Student ID</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                    </tr>
+                                    {% for x in students %}
+                                    <tr>
+                                        <td>{{ x.user.username }}</td>
+                                        <td>{{ x.user.first_name }}</td>
+                                        <td>{{ x.user.last_name }}</td>
+                                        <td> {{ x.user.email }}</td>
+                                    </tr>
+                                    {% endfor%}
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal " id="exampleModal1" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-uppercase" id="exampleModalLabel1">{{user.coordinator.department}} Department Guides</h5>
+                                <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table>
+                                    <tr>
+                                        <th>Guide ID</th>
+                                        <th>Guide's Name</th>
+                                        <th>Email</th>
+                                        <th>Designation</th>
+                                    </tr>
+                                    {% for x in guides %}
+                                    <tr>
+                                        <td>{{ x.user.username }}</td>
+                                        <td>{{ x.user.first_name }} {{ x.user.last_name }}</td>
+                                        <td> {{ x.user.email }}</td>
+                                        <td>{{ x.designation }}</td>
+                                    </tr>
+                                    {% endfor%}
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="exampleModal2" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-uppercase" id="exampleModalLabel2">Industry Mentors</h5>
+                                <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table>
+                                    <tr>
+                                        <th>Mentor ID</th>
+                                        <th>Mentor's Name</th>
+                                        <th>Email</th>
+                                        <th>Designation</th>
+                                    </tr>
+                                    {% for x in mentors %}
+                                    <tr>
+                                        <td>{{ x.user.username }}</td>
+                                        <td>{{ x.user.first_name }} {{ x.user.last_name }}</td>
+                                        <td> {{ x.user.email }}</td>
+                                        <td>{{ x.designation }}</td>
+                                    </tr>
+                                    {% endfor%}
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="exampleModal3" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-uppercase" id="exampleModalLabel3"> Head Of {{user.coordinator.department}} Department</h5>
+                                <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                               <table>
+                                    <tr>
+                                        <th>Mentor ID</th>
+                                        <th>Mentor's Name</th>
+                                        <th>Email</th>
+                                        <th>Designation</th>
+                                    </tr>
+                                    {% for x in hods %}
+                                    <tr>
+                                        <td>{{ x.user.username }}</td>
+                                        <td>{{ x.user.first_name }} {{ x.user.last_name }}</td>
+                                        <td> {{ x.user.email }}</td>
+                                        <td>{{ x.phone_number }}</td>
+                                    </tr>
+                                    {% endfor%}
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="exampleModal4" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-uppercase" id="exampleModalLabel4"> {{user.coordinator.department}} Department Projects</h5>
+                                <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table>
+                                    <tr>
+                                        <th>Project Name</th>
+                                        <th>Project Description</th>
+                                        <th>Teams</th>
+
+                                    </tr>
+                                    {% for x in obj %}
+                                    <tr>
+                                        <td>{{ x.project_name }}</td>
+                                        <td>{{ x.project_description }}</td>
+
+                                        <td>{% for y in x.teams.all %} {{ y }}{% endfor%}</td>
+                                    </tr>
+                                    {% endfor%}
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="exampleModal5" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-uppercase" id="exampleModalLabel5">Teams</h5>
+                                <button type="button" class="btn-close btn-danger" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table>
+                                    <tr>
+                                        <th>Team Name</th>
+                                        <th>All Members</th>
+
+                                    </tr>
+                                    {% for x in teams %}
+                                    <tr>
+                                        <td>{{ x.team }}</td>
+                                        <td>{% for y in x.members.all %} <span>{{ y }},</span> {% endfor%}</td>
+
+                                    </tr>
+                                    {% endfor%}
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-6">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="card text-white bg-primary bg-gradient">
+                            <div class="card-body pb-0">
+
+                                <h5 class="mb-0">  {{users.count}}</h5>
+                                <h4 class="text">Total Users</h4>
+                            </div>
+                            <div class="chart-wrapper px-3" style="height:70px;">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="card text-white bg-primary bg-gradient">
+                            <div class="card-body pb-0">
+
+                                <h5 class="mb-0">{{ total }} {{user.coordinator.department}}</h5>
+                                <h4 class="text">Dept. Users</h4>
+                            </div>
+                            <div class="chart-wrapper px-3" style="height:70px;">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-12 col-lg-6">
+                <div class="card text-white bg-info bg-gradient">
+                    <div class="card-body pb-0">
+
+
+
+                        <h5 class="mb-0">{{students.count}} </h5>
+
+
+                        <h4 class="text-">Students</h4>
+                    </div>
+                    <div class="chart-wrapper px-3" style="height:70px;">
+                    </div>
+                </div>
+            </div>
+        </div></br>
+        <div class="row">
+            <div class="col-sm-12 col-lg-6">
+                <div class="card text-white bg-warning bg-gradient">
+                    <div class="card-body pb-0">
+
+                        <h5 class="mb-0">{{ guides.count }}</h5>
+                        <h4 class="text">Guides</h4>
+                    </div>
+                    <div class="chart-wrapper px-3" style="height:70px;">
+                    </div>
+                </div>
+            </div></br>
+            <div class="col-sm-12 col-lg-6">
+                <div class="card text-white bg-danger bg-gradient">
+                    <div class="card-body pb-0">
+
+                        <h5 class="mb-0">{{ mentors.count }}</h5>
+                        <h4 class="text">Industry Mentors</h4>
+                    </div>
+                    <div class="chart-wrapper px-3" style="height:70px;">
+                    </div>
+                </div>
+            </div>
+        </div></br>
+        <div class="row">
+            <div class="col-sm-12 col-lg-6">
+                <div class="card text-white bg-success bg-gradient">
+                    <div class="card-body pb-0">
+
+                        <h5 class="mb-0">{{hods.count}}</h5>
+                        <h4 class="text">Head Of Department</h4>
+                    </div>
+                    <div class="chart-wrapper px-3" style="height:70px;">
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+                <div class="card text-white bg-secondary bg-gradient">
+                    <div class="card-body pb-0">
+
+                        <h6 class="mb-0">{{coordinators.count}}</h6>
+                        <h4 class="text">Coordinator</h4>
+                    </div>
+                    <div class="chart-wrapper px-3" style="height:70px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div></br>
+<div class="card" >
+    <div class="card-body">
+        <h5 class="card-title text-uppercase text-success">Projects & All:</h5>
+
+        <div class="row">
+            <div class="col-sm-12 col-lg-6">
+                <div class="card text-white bg-success bg-gradient">
+                    <div class="card-body pb-0">
+
+                        <h5 class="mb-0">{{teams.count}}</h5>
+                        <h4 class="text">Teams</h4>
+                    </div>
+                    <div class="chart-wrapper px-3" style="height:70px;">
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+                <div class="card text-white bg-secondary bg-gradient">
+                    <div class="card-body pb-0">
+
+                        <h6 class="mb-0">{{obj.count}}</h6>
+                        <h4 class="text">Projects</h4>
+                    </div>
+                    <div class="chart-wrapper px-3" style="height:70px;">
+                    </div>
+                </div>
+            </div>
+        </div></br>
+
+        <div class="row">
+            <div class="col-sm-12 col-lg-6">
+                <div class="card text-white bg-primary bg-gradient">
+                    <div class="card-body pb-0">
+
+                        <h5 class="mb-0">{{ r_enroll }}</h5>
+                        <h4 class="text-">Requested Projects</h4>
+                    </div>
+                    <div class="chart-wrapper px-3" style="height:70px;">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+                <div class="card text-white bg-info bg-gradient">
+                    <div class="card-body pb-0">
+                        <h5 class="mb-0">{{d_enroll}} </h5>
+                        <h4 class="text-">Enrolled Projects</h4>
+                    </div>
+                    <div class="chart-wrapper px-3" style="height:70px;">
+                    </div>
+                </div>
+            </div>
+        </div></br>
+        <div class="row">
+            <div class="col-sm-12 col-lg-6">
+                <div class="card text-white bg-warning bg-gradient">
+                    <div class="card-body pb-0">
+
+                        <h5 class="mb-0">{{ t_task }}</h5>
+                        <h4 class="text">Total Tasks</h4>
+                    </div>
+                    <div class="chart-wrapper px-3" style="height:70px;">
+                    </div>
+                </div>
+            </div></br>
+            <div class="col-sm-12 col-lg-6">
+                <div class="card text-white bg-danger bg-gradient">
+                    <div class="card-body pb-0">
+
+                        <h5 class="mb-0">{{ c_task }}</h5>
+                        <h4 class="text">Completed Tasks</h4>
+                    </div>
+                    <div class="chart-wrapper px-3" style="height:70px;">
+                    </div>
+                </div>
+            </div>
+        </div></br>
+        <div class="row">
+            <div class="col-6">
+                <h6 class="text-muted">All Project progress</h6>
+
+                <canvas id="myChart" width="400" height="400"></canvas>
+                <script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: {{labels|safe}},
+        datasets: [{
+            label: 'Project progress in %',
+            data: {{datax2|safe}},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+            </div>
+            <div class="col-6">
+                <h6 class="text-muted"> Total Progress ({{completed}} % )</h6>
+
+                <canvas id="myChart1" width="100" height="100"></canvas>
+                <script>
+
+const ctx2 = document.getElementById('myChart1').getContext('2d');
+const myChart1 = new Chart(ctx2, {
+    type: 'pie',
+    data: {
+
+labels: ['Completed', 'Not Completed'],
+        datasets: [{
+            label: '# of Votes',
+
+            data: [{{completed}}, {{not_completed}}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+
+});
+
+</script>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endwith %}
+
+{% endif %}
+{% endblock content %}
