@@ -339,12 +339,21 @@ div.content {
                       Enrolled Projects
                   </a>
               </li></br>
-              <li class="nav-item rounded bg-light">
-                  <a href="{% url 'coordinator_report'  user.coordinator.department_id %}" class="nav-link text-white">
-                      <i class="fa fa-id-card"></i>
-                      Report
-                  </a>
-              </li>
+              {% if user.coordinator.department %}
+            <li class="nav-item rounded bg-light">
+                <a href="{% url 'coordinator_report' user.coordinator.department_id %}" class="nav-link text-white">
+                    <i class="fa fa-id-card"></i>
+                    Report
+                </a>
+            </li>
+            {%else%}
+            <li class="nav-item rounded bg-light">
+                <a href="{% url 'coordinator_profile'  %}" class="nav-link text-white">
+                    <i class="fa fa-id-card"></i>
+                    Profile
+                </a>
+            </li>
+            {% endif %}
 
           </ul>
           <hr>

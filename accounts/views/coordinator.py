@@ -233,7 +233,6 @@ def coordinator_report(request, department_id):
     for d in enroll:
         if d.project in obj:
             datax1 = []
-
             for y in tasks:
                 if y.project_id == d.project_id:
                     for s in statuss:
@@ -246,15 +245,15 @@ def coordinator_report(request, department_id):
             for p in obj:
                 if d.project == p:
                     label.append(p.project_name)
+    completed = 0
 
     per = len(datax2)
     if per != 0:
         completed = (sum(datax2) / per)
-        not_completed = 100 - completed
+    not_completed = 100 - completed
 
     context = {
         'obj': obj,
-        'not_completed': not_completed,
         'students': students,
         'guides': guides,
         'mentors': mentors,
@@ -269,8 +268,8 @@ def coordinator_report(request, department_id):
         'c_task': c_task,
         'r_enroll': r_enroll,
         'completed': completed,
+        'not_completed': not_completed,
         'datax2': datax2,
-        'datax1': datax1,
         'labels': labels,
 
     }
