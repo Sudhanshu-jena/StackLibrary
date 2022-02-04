@@ -20,7 +20,7 @@
             {% if task.status_set.first.submission_file %}
             <h6 class="text-muted">Document submitted by student:
 
-                <a href={{task.status_set.first.submission_file.url}} download> {{ task.status_set.first.submission_file }}</a></h6></br>
+                <a href={{task.status_set.first.submission_file.url}} download target="_blank"> {{ task.status_set.first.submission_file }}</a></h6></br>
             {%else%}
             <h6 class="text-muted">Document submitted by student: Not Yet</h6>
             {%endif%}
