@@ -26,113 +26,13 @@
             {%endif%}
             <h7>Progress duration: <h8 class="text-success">{{ task.status_set.first.task_start_date }}-{{ task.status_set.first.task_end_date }}</h8></h7>
             <hr>
-            <!--            {% for comment in comments %}-->
-            <!--            <div class="row my-3">-->
 
-            <!--                <div class="col-md-11 ">-->
-            <!--                    <b> {{comment.user.username}} </b> at {{comment.timestamp}}-->
-            <!--                    <div>   {{comment.comment}} </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            {% endfor %}-->
 
 
         </div>
     </div>
 </div>
-<!--<div class="card">-->
-<!--    <div class="card-body">-->
 
-<!--        <div class="container">-->
-
-<!--            {% for comment in comments %}-->
-<!--            <div class="row my-3">-->
-<!--                <div class="col-md-1 ">-->
-<!--                    <h3>.</h3>-->
-<!--&lt;!&ndash;                            <img class="rounded mx-auto d-block w-75 my-2 border border-dark p-2" src="/static/img/user.png" alt="user">&ndash;&gt;-->
-<!--                        </div>-->
-
-<!--                <div class="col-md-11 ">-->
-<!--                    {% if comment.user.is_guide %}-->
-<!--                    <b>Guide: </b>-->
-<!--                    {% elif comment.user.is_industry_mentor%}-->
-<!--                    <b>Industry Mentor: </b>-->
-<!--                    {% elif comment.user.is_student%}-->
-<!--                    <b>Student: </b>-->
-<!--                    {% endif %}-->
-<!--                     {{comment.user.first_name}}  <span class="badge badge-secondary ">{{comment.timestamp}}</span>-->
-<!--                    <div class="reply mx-0">-->
-<!--                         <div>   {{comment.comment}} </div>-->
-
-<!--                        <button class="btn btn-sm btn-outline-primary " type="button" data-toggle="collapse" data-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="replyBox{{comment.sno}}">-->
-<!--                            Reply-->
-<!--                        </button>-->
-<!--                        <div class="collapse" id="replyBox{{comment.sno}}">-->
-<!--                            <div class="card card-body my-2">-->
-<!--                                <form action="{% url 'task_comment_student' %}" method="post">-->
-<!--                                    {% csrf_token %}-->
-<!--                                    <div class="form-group">-->
-<!--                                        <h5 class="text-success text-uppercase">Post a reply</h5>-->
-<!--                                        <textarea rows="4" cols="50" name="comment" placeholder="Enter comment here"></textarea>-->
-<!--                                        <input type="hidden" name="parentSno" value="{{comment.sno}}">-->
-<!--                                    </div>-->
-<!--                                    <input type="hidden" name="task_id" value="{{task.id}}" >-->
-<!--                                    <button type="submit" class="btn btn-outline-success float-end">Reply</button>-->
-<!--                                </form>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <div class="replies my-2 ">-->
-<!--                            {% for reply in replyDict|get_val:comment.sno %}-->
-<!--                            <div class="row my-2">-->
-<!--                                <div class="col-md-1 ">-->
-<!--                                    <h4>-</h4>-->
-<!--&lt;!&ndash;                            <img class="rounded mx-auto d-block w-75 my-2 border border-dark p-2" src="/static/img/user.png" alt="user">&ndash;&gt;-->
-<!--                        </div>-->
-<!--                                <div class="col-md-11">-->
-<!--                                    <div class="col-md-11 ">-->
-<!--                                        <b>Replied by </b>-->
-
-<!--                                        {% if reply.user.is_guide %}-->
-<!--                                        <b>Guide: </b>-->
-<!--                                        {% elif reply.user.is_industry_mentor%}-->
-<!--                                        <b>Industry Mentor: </b>-->
-<!--                                        {% elif reply.user.is_student%}-->
-<!--                                        <b>Student: </b>-->
-<!--                                        {% endif %}-->
-<!--                                        {{reply.user.first_name}} <span class="badge badge-secondary ">{{reply.timestamp| naturaltime}}</span>-->
-<!--                                        <div class="text-muted">{{reply.comment}}</div>-->
-<!--                                    </div>-->
-
-<!--                                </div>-->
-<!--                            </div>-->
-<!--&lt;!&ndash;                            <h6 class="text-dark"><b>Replied by </b> </h6>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <h7 class="text-muted">{{reply.comment}}</h7>&ndash;&gt;-->
-<!--                            <br>-->
-<!--                            {% endfor %}-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            {% endfor %}-->
-<!--            <div class="my-2">-->
-
-<!--                <form action="{% url 'task_comment_student' %}" method="post">-->
-<!--                    {% csrf_token %}-->
-<!--                    <div class="form-group">-->
-<!--                        <h5 class="text-success text-uppercase"> Doubt/Submission</h5>-->
-<!--                        <textarea rows="4" cols="50" name="comment" placeholder="Enter comment here"></textarea>-->
-<!--                    </div>-->
-<!--                    <input type="hidden" name="task_id" value="{{task.id}}" >-->
-<!--                    <input type="hidden" name="parentSno" value="">-->
-<!--                    <button type="submit" class="btn btn-outline-success float-end">Submit</button>-->
-<!--                </form>-->
-
-
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 {% if task.status_set.first.status == 'Working' or task.status_set.first.submission == 'Rejected' %}
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
@@ -151,7 +51,7 @@
 	</script></br>
 
 <div class="card">
-<div class="card-body">
+    <div class="card-body">
         <div class="radio_tabs">
             <label class="radio_wrap" data-radio="radio_1">
                 <input type="radio" name="sports" class="input" checked>
@@ -259,14 +159,14 @@
 
 
                     </div>
-                    </div>
                 </div>
+            </div>
 
 
 
             <div class="radio_content radio_2">
                 <div class="container">
-              <div class="my-2">
+                    <div class="my-2">
 
                         <form action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
@@ -274,7 +174,7 @@
                                 <h5 class="text-success text-uppercase"> Submission</h5>
                                 <input type="hidden" name="submission" value="In Review">
                                 <input type="file" name="submission_file" >
-<!--                                {{form|crispy}}-->
+                                <!--                                {{form|crispy}}-->
                             </div>
 
                             <button type="submit" class="btn btn-outline-success float-end">Submit</button>
@@ -285,16 +185,16 @@
                 </div>
             </div>
 
-</div>
+        </div>
     </div>
 </div>
 {% elif task.status_set.first.submission == 'Approved' %}
 </br><div class="card">
     <div class="card-body">
 
- <h6 class="text-success text-center">
-     Task is Approved.
-</h6>
+        <h6 class="text-success text-center">
+            Task is Approved.
+        </h6>
     </div>
 </div>
 
@@ -302,9 +202,9 @@
 </br><div class="card">
     <div class="card-body">
 
- <h6 class="text-danger text-center">
-     Task submitted for review.
-</h6>
+        <h6 class="text-danger text-center">
+            Task submitted for review.
+        </h6>
     </div>
 </div>
 
@@ -312,9 +212,9 @@
 </br><div class="card">
     <div class="card-body">
 
- <h6 class="text-muted text-center">
-     Task is not in working mode.
-</h6>
+        <h6 class="text-muted text-center">
+            Task is not in working mode.
+        </h6>
     </div>
 </div>
 
