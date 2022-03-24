@@ -1,11 +1,16 @@
 from django.contrib import admin
 from .models import User, TaskComment, Student, Status, Guide, Hod, \
     IndustryMentor, Coordinator, ProjectCreator, Contact, Batch, DepartmentName, \
-    Division, Team, Project, Task, Enroll, RequestedProject
+    Division, Team, Project, Task, Enroll, RequestedProject, SavedData, Duration, \
+    CollegeName
 
 
 class AdminStudent(admin.ModelAdmin):
     list_display = ['user', 'batch']
+
+
+class AdminProject(admin.ModelAdmin):
+    list_display = ['id', 'project_name', 'department', 'batch', 'college']
 
 
 class AdminGuide(admin.ModelAdmin):
@@ -55,10 +60,12 @@ class AdminTaskName(admin.ModelAdmin):
 admin.site.register(User)
 admin.site.register(TaskComment)
 admin.site.register(Team)
-admin.site.register(Project)
+admin.site.register(Project, AdminProject)
 admin.site.register(RequestedProject)
 admin.site.register(Status, AdminEnrollmentName)
-# admin.site.register(Reply)
+admin.site.register(Duration)
+admin.site.register(CollegeName)
+admin.site.register(SavedData)
 admin.site.register(Enroll, AdminEnrollName)
 admin.site.register(Task, AdminTaskName)
 admin.site.register(Student, AdminStudent)

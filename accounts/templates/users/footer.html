@@ -1,15 +1,13 @@
 {% load static %}
+{% if user.is_authenticated %}
 
-
-    {% if user.is_authenticated %}
-
-    <div class="container fixed-bottom ">
-        <div class="copyright col-12 text-end text-dark">
-            &copy; <strong><span>Stack Library</span></strong><span class="text-muted"> 2022</span>, designed with <i class="fa fa-heart text-danger"> </i> by StackLibrary™
-        </div>
+<div class="container fixed-bottom ">
+    <div class="copyright col-12 text-end text-dark">
+        &copy; <strong><span>Stack Library</span></strong><span class="text-muted"> 2022</span>, designed with <i class="fa fa-heart text-danger"> </i> by StackLibrary™
     </div>
+</div>
 
-    {% else %}
+{% else %}
 <footer class="page-footer bg-dark font-small special-color-dark pt-4">
     <div class="footer-top text-light">
         <div class="container">
@@ -22,7 +20,7 @@
                 <div class="col-lg-3 col-md-6 footer-links text-secondary">
                     <h5 class="text-light text-uppercase">Our Work Place</h5>
                     A108 Altamount, BKC  <br>
-                     400051, Mumbai <br> INDIA
+                    400051, Mumbai <br> INDIA
                 </div>
                 <div class="col-lg-3 col-md-6 footer-links text-secondary">
                     <h5 class="text-light text-uppercase">Need Help</h5>
@@ -48,5 +46,5 @@
             &copy; <strong><span>Stack Library</span></strong><span class="text-muted"> 2022</span>, designed with <i class="fa fa-heart text-danger"> </i> by StackLibrary™
         </div>
     </div>
-    </footer>
-    {% endif %}
+</footer>
+{% endif %}

@@ -5,51 +5,20 @@
 <div class="card">
     <div class="card-body">
         <form method="POST">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">New Task</legend>
-                    {{ form.media }}
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">New Task</legend>
+                {{ form.media }}
 
-                    {{ form|crispy }}
-                </fieldset></br>
-                <div class="form-group">
-                    <button class="btn btn-outline-success" type="submit">Add</button>
-                </div>
-            </form>
+                {{ form|crispy }}
+            </fieldset></br>
+            <div class="form-group">
+                <button class="btn btn-outline-success" type="submit">Add</button>
+            </div>
+        </form>
 
     </div>
 </div>
-<!--<div class="card">-->
-<!--    <div class="card-body">-->
-<!--        <form>-->
-<!--            <div class="form-group">-->
-<!--                <label for="example1">Task Name</label>-->
-<!--                <input type="text" class="form-control" id="example1" placeholder="Task Name">-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="example2">Task Description</label>-->
-<!--                <textarea class="form-control" id="example2" rows="3"></textarea>-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="example3">Start Date</label>-->
-<!--                <input type="date"  class="form-control" id="example3" placeholder="mm/dd/yyyy">-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="example4">End Date</label>-->
-<!--                <input type="date" class="form-control" id="example4" placeholder="mm/dd/yyyy">-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="example5">Reference</label>-->
-<!--                <input type="url"  class="form-control" id="example5" placeholder="Add a link">-->
-<!--            </div> <label>OR</label>-->
-<!--            <div class="form-group">-->
 
-<!--                <input type="file"  class="form-control" id="example6" placeholder="Upload File">-->
-<!--            </div>-->
-<!--            </br>-->
-<!--            <button type="submit" class="btn btn-success float-end">Add</button>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</div>-->
 {% endif %}
 {% endblock content %}

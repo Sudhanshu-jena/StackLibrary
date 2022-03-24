@@ -8,7 +8,7 @@
             <div class="row">
                 <!--<h6><a class="text-dark" href="{{ x.slug }}">{{ x }}</a></h6>-->
                 <div class="col-8">
-                    <h2 class="text-primary">{{ data.project_name }}</h2> <h9 class="text-success">Department-{{ data.department }}</h9>
+                    <h2 class="text-primary">{{ data.project_name }}</h2> <h9 class="text-success">Department- {{data.batch}} {{ data.department }}</h9>
                     <h6>Description</h6>
                     <h7 class="text-dark">{{ data.project_description }}</h7>
                 </div>
@@ -23,24 +23,24 @@
 
             <div class="row">
                 {% with data.id as name %}
-                    {% for x in task %}
-                    {% if x.project_id == name %}
-                    <h5 class="card-title">{{ x }}</h5>
-                    <h7 class="text-muted"> {{x.task_description}}</h7>
+                {% for x in task %}
+                {% if x.project_id == name %}
+                <h5 class="card-title">{{ x }}</h5>
+                <h7 class="text-muted"> {{x.task_description}}</h7>
 
-                    <div class="row">
-                        <div class="col-10">
+                <div class="row">
+                    <div class="col-10">
                         <a href="{% url 'delete_task_view' x.id %}" class="btn btn-danger float-end">Delete</a>
-                            </div>
-                            <div class="col-2">
-                        <a href="{% url 'update_task_view' x.id %}" class="btn btn-info float-start">View</a>
-                                </div>
                     </div>
-                    {% endif %}
-                    {% endfor %}
+                    <div class="col-2">
+                        <a href="{% url 'update_task_view' x.id %}" class="btn btn-info float-start">View</a>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
                 {% endwith %}
-                </div><hr>
-            <a href="{% url 'project_creator_add_task'  %}" class="btn btn-primary float-end">Add Task</a>
+            </div><hr>
+            <a href="{% url 'project_creator_add_task' data.id %}" class="btn btn-primary float-end">Add Task</a>
         </div>
     </div>
 </div>

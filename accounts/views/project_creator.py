@@ -101,12 +101,16 @@ def project_creator_login(request):
     return render(request, "users/project_creator/home.html", context)
 
 
-def project_creator_add_task(request):
+def project_creator_add_task(request, id):
     if request.method == 'POST':
         form = TaskRegistrationForm(request.POST)
-        context = {'form': form}
+        project_id = id
+        context = {'form': form,
+                   'project_id': project_id}
         if form.is_valid():
-            form.save()
+            fs = form.save()
+            fs.project_id = project_id
+            fs.save()
             created = True
             form = TaskRegistrationForm()
             context = {

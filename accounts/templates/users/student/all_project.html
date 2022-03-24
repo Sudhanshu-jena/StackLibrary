@@ -3,43 +3,36 @@
 
 {% if user.is_authenticated and user.is_student %}
 <div class="col-12">
-    {% with user.student.department as department %}
 
 
     {% for x in obj %}
-    {% if x.department == department %}
+    {% if x.department == user.student.department and x.batch == user.student.batch and x.college == user.student.college %}
     {% for y in remaining %}
     {% if y == x.id %}
-
-
 
     <div class="card mx-2 mt-2">
         <div class="card-body">
             <div>
-                <!--<h6><a class="text-dark" href="{{ x.slug }}">{{ x }}</a></h6>-->
                 <h2 class="text-primary">{{ x }}</h2>
-                <h9 class="text-success">Department-{{ x.department }}</h9>
-
-
+                <h9 class="text-success">Department- {{x.batch}} {{ x.department }}</h9>
 
             </div>
             <hr>
             <div>
                 <h6 class="text-muted">{{ x.project_description }}</h6>
             </div></br>
-
-
             <a href="{% url 'request_project_confirm' x.id%}" class="btn btn-primary float-end">Enroll</a>
-
 
         </div>
     </div>
-{% endif %}
-{% endfor %}
-    {% endif %}
-{% endfor %}
 
-    {% endwith %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+
+
 </div>
+
 {% endif %}
 {% endblock content %}

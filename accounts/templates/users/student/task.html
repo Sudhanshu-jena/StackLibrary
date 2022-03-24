@@ -26,9 +26,6 @@
             {%endif%}
             <h7>Progress duration: <h8 class="text-success">{{ task.status_set.first.task_start_date }}-{{ task.status_set.first.task_end_date }}</h8></h7>
             <hr>
-
-
-
         </div>
     </div>
 </div>
@@ -78,7 +75,6 @@
                     <div class="row my-3">
                         <div class="col-md-1 ">
                             <h3>.</h3>
-                            <!--                            <img class="rounded mx-auto d-block w-75 my-2 border border-dark p-2" src="/static/img/user.png" alt="user">-->
                         </div>
 
                         <div class="col-md-11 ">
@@ -116,7 +112,6 @@
                                     <div class="row my-2">
                                         <div class="col-md-1 ">
                                             <h4>-</h4>
-                                            <!--                            <img class="rounded mx-auto d-block w-75 my-2 border border-dark p-2" src="/static/img/user.png" alt="user">-->
                                         </div>
                                         <div class="col-md-11">
                                             <div class="col-md-11 ">
@@ -135,8 +130,6 @@
 
                                         </div>
                                     </div>
-                                    <!--                            <h6 class="text-dark"><b>Replied by </b> </h6>-->
-                                    <!--                            <h7 class="text-muted">{{reply.comment}}</h7>-->
                                     <br>
                                     {% endfor %}
                                 </div>
@@ -174,7 +167,7 @@
                                 <h5 class="text-success text-uppercase"> Submission</h5>
                                 <input type="hidden" name="submission" value="In Review">
                                 <input type="file" name="submission_file" >
-                                <!--                                {{form|crispy}}-->
+
                             </div>
 
                             <button type="submit" class="btn btn-outline-success float-end">Submit</button>

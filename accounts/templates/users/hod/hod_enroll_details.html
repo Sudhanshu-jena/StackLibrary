@@ -6,20 +6,14 @@
 <div class="card">
     <div class="card-body">
         <div class="main">
-
-
             <h2 class="text-primary">Project ID: {{ obj.enroll }}</h2><hr>
-
-
-
-
             <h4 class="">Team: <h5 class="text-muted">{{ obj.team }}, {{ obj.batch }} Batch</h5></h4>
+
             {% for y in team %}
             {% if y.id == obj.team_id %}
+
             <div class="col-12">
                 <h5 class="">Team members are: <h6 class="text-muted">{% for x in y.members.all %} {{ x }}, {% endfor %}</h6></h5>
-
-
             </div>
 
             {% endif %}
@@ -28,15 +22,11 @@
             <h5>Project Name: <h6 class="text-muted">{{ obj.project }}</h6></h5>
             <h5>Guide: <h6 class="text-muted">{% for guide in obj.guide_or_industry_mentor.all %}{{ guide }}, {% endfor %}</h6></h5>
             <h6>Enrolled on: <h7 class="text-success"> {{ obj.date_enrolled }}</h7></h6>
-
-
-
         </div><hr>
         <div class="col-8">
-                    <h6 class="text-muted"> Users Interaction</h6>
-
-                    <canvas id="myChart" width="400" height="200"></canvas>
-<script>
+            <h6 class="text-muted"> Users Interaction</h6>
+            <canvas id="myChart" width="400" height="200"></canvas>
+            <script>
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'bar',
@@ -73,7 +63,7 @@ const myChart = new Chart(ctx, {
     }
 });
 </script>
-                </div>
+        </div>
     </div>
 </div>
 

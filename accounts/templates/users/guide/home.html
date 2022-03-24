@@ -2,36 +2,36 @@
 {% block content %}
 {% if user.is_authenticated and user.is_guide %}
 <div class="card">
-            <div class="card border-success">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-8">
-                        <h5 class="card-title text-success"><i class="fa fa-qrcode"></i> Projects</h5>
-                    </div>
-
+    <div class="card border-success">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-8">
+                    <h5 class="card-title text-success"><i class="fa fa-qrcode"></i> Projects</h5>
                 </div>
-                <hr>
-                {% for enroll in enrolls %}
-                {% for guide in enroll.guide_or_industry_mentor.all %}
 
-                {% if user == guide %}
-
-
-                <div class="row">
-                    <div class="col-sm">
-                        <h6>Project Name:</h6> <h7 class="text-muted text-uppercase">{{ enroll.project }}</h7>
-                        <a href="{% url 'guide_project_view' enroll.project_id  %}" class="btn btn-outline-primary bg-gradient float-end">View Project</a>
-                    </div>
-                </div>
-                </br>
-
-
-                {% endif %}
-                {% endfor %}
-                {% endfor %}
             </div>
+            <hr>
+            {% for enroll in enrolls %}
+            {% for guide in enroll.guide_or_industry_mentor.all %}
+
+            {% if user == guide %}
+
+
+            <div class="row">
+                <div class="col-sm">
+                    <h6>Project Name:</h6> <h7 class="text-muted text-uppercase">{{ enroll.project }}</h7>
+                    <a href="{% url 'guide_project_view' enroll.project_id  %}" class="btn btn-outline-primary bg-gradient float-end">View Project</a>
+                </div>
+            </div>
+            </br>
+
+
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
         </div>
-        </div>
+    </div>
+</div>
 </br>
 
 {% endif %}

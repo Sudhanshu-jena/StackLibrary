@@ -5,8 +5,19 @@ from django.contrib.auth.models import AbstractUser
 from .helpers import *
 from project import settings
 
-
 datetime.now().date()
+
+
+class Duration(models.Model):
+
+    duration = models.CharField(max_length=20)
+
+    @staticmethod
+    def get_all_years():
+        return Duration.objects.all()
+
+    def __str__(self):
+        return self.duration
 
 
 class Batch(models.Model):
@@ -30,6 +41,17 @@ class DepartmentName(models.Model):
 
     def __str__(self):
         return self.department
+
+
+class CollegeName(models.Model):
+    college = models.CharField(max_length=40)
+
+    @staticmethod
+    def get_all_departments():
+        return CollegeName.objects.all()
+
+    def __str__(self):
+        return self.college
 
 
 class Division(models.Model):
@@ -70,6 +92,8 @@ class Project(models.Model):
     project_description = models.TextField(blank=True)
     department = models.ForeignKey(DepartmentName, on_delete=models.SET_NULL, null=True, blank=True)
     teams = models.ManyToManyField(Team, blank=True, through='Enroll')
+    batch = models.ForeignKey(Batch, on_delete=models.SET_NULL, null=True, blank=True)
+    college = models.ForeignKey(CollegeName, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         ordering = ['project_name']
@@ -84,9 +108,10 @@ class Project(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    student_id = models.CharField(max_length=20, default=' ')
-    phone_number = models.CharField(max_length=20, default=' ')
-    image = models.ImageField(default='user.png', upload_to='profile_pics/')
+    student_id = models.CharField(max_length=20, default=' ', blank=True)
+    phone_number = models.CharField(max_length=20, default=' ', blank=True)
+    image = models.ImageField(default='profile_pics/user.png', upload_to='profile_pics/')
+    college = models.ForeignKey(CollegeName, on_delete=models.SET_NULL, null=True)
     batch = models.ForeignKey(Batch, on_delete=models.SET_NULL, null=True)
     department = models.ForeignKey(DepartmentName, on_delete=models.SET_NULL, null=True)
     div = models.ForeignKey(Division, on_delete=models.SET_NULL, null=True)
@@ -99,12 +124,41 @@ class Student(models.Model):
         return str(self.user)
 
 
+class SavedData(models.Model):
+    enroll = models.CharField(max_length=20, default=' ')
+    slug = models.SlugField(max_length=1000, null=True, blank=True)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
+    college = models.ForeignKey(CollegeName, on_delete=models.SET_NULL, null=True)
+    batch = models.ForeignKey(Batch, on_delete=models.SET_NULL, null=True)
+    duration = models.ForeignKey(Duration, on_delete=models.SET_NULL, null=True)
+    guide_or_industry_mentor = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
+    date_enrolled = models.DateField()
+
+    class Meta:
+        ordering = ['enroll']
+        unique_together = [['project', 'team']]
+
+    @staticmethod
+    def get_all_enrolls():
+        return SavedData.objects.all()
+
+    def save(self, *args, **kwargs):
+        self.slug = generate_slug(self.team)
+        super(SavedData, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.enroll
+
+
 class Enroll(models.Model):
     enroll = models.CharField(max_length=20, default=' ')
     slug = models.SlugField(max_length=1000, null=True, blank=True)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
+    college = models.ForeignKey(CollegeName, on_delete=models.SET_NULL, null=True)
     batch = models.ForeignKey(Batch, on_delete=models.SET_NULL, null=True)
+    duration = models.ForeignKey(Duration, on_delete=models.SET_NULL, null=True)
     guide_or_industry_mentor = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
     date_enrolled = models.DateField()
 
@@ -137,7 +191,8 @@ class Guide(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     faculty_id = models.CharField(max_length=20, default=' ')
     phone_number = models.CharField(max_length=20,default=' ')
-    image = models.ImageField(default='user.png', upload_to='profile_pics/')
+    image = models.ImageField(default='profile_pics/user.png', upload_to='profile_pics/')
+    college = models.ForeignKey(CollegeName, on_delete=models.SET_NULL, null=True)
     department = models.ForeignKey(DepartmentName, on_delete=models.SET_NULL, null=True)
     designation = models.CharField(max_length=20, default=' ')
     worked_experience = models.TextField(blank=True)
@@ -154,7 +209,8 @@ class Hod(models.Model):
     faculty_id = models.CharField(max_length=20, default=' ')
     department = models.ForeignKey(DepartmentName, on_delete=models.SET_NULL, null=True)
     phone_number = models.CharField(max_length=20, default=' ')
-    image = models.ImageField(default='user.png', upload_to='profile_pics/')
+    college = models.ForeignKey(CollegeName, on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(default='profile_pics/user.png', upload_to='profile_pics/')
 
     class Meta:
         ordering = ['user']
@@ -166,7 +222,7 @@ class Hod(models.Model):
 class IndustryMentor(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     phone_number = models.CharField(max_length=20, default=' ')
-    image = models.ImageField(default='user.png', upload_to='profile_pics/')
+    image = models.ImageField(default='profile_pics/user.png', upload_to='profile_pics/')
     designation = models.CharField(max_length=20, default=' ')
     worked_experience = models.TextField(blank=True)
 
@@ -183,7 +239,8 @@ class Coordinator(models.Model):
     phone_number = models.CharField(max_length=20, default=' ')
     department = models.ForeignKey(DepartmentName, on_delete=models.SET_NULL, null=True)
     designation = models.CharField(max_length=20, default=' ')
-    image = models.ImageField(default='user.png', upload_to='profile_pics/')
+    college = models.ForeignKey(CollegeName, on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(default='profile_pics/user.png', upload_to='profile_pics/')
 
     class Meta:
         ordering = ['user']
@@ -195,7 +252,7 @@ class Coordinator(models.Model):
 class ProjectCreator(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     phone_number = models.CharField(max_length=20, default=' ')
-    image = models.ImageField(default='user.png', upload_to='profile_pics/')
+    image = models.ImageField(default='profile_pics/user.png', upload_to='profile_pics/')
 
     class Meta:
         ordering = ['user']

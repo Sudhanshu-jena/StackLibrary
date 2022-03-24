@@ -17,29 +17,29 @@
             <div class="row">
                 <div class="col-12">
                     <h5>Status: <h6 class="text-muted">{{ task.status_set.first.get_status_display }}</h6></h5>
-            <h5>Submission: <h6 class="text-muted">{{ task.status_set.first.submission }}</h6></h5>
-            {% if task.status_set.first.submission_file %}
-            <h6 class="text-muted">Document submitted by student:
+                    <h5>Submission: <h6 class="text-muted">{{ task.status_set.first.submission }}</h6></h5>
+                    {% if task.status_set.first.submission_file %}
+                    <h6 class="text-muted">Document submitted by student:
 
-                <a href={{task.status_set.first.submission_file.url}} download target="_blank"> {{ task.status_set.first.submission_file }}</a></h6></br>
-            {%else%}
-            <h6 class="text-muted">Document submitted by student: Not Yet</h6>
-            {%endif%}
+                        <a href={{task.status_set.first.submission_file.url}} download target="_blank"> {{ task.status_set.first.submission_file }}</a></h6></br>
+                    {%else%}
+                    <h6 class="text-muted">Document submitted by student: Not Yet</h6>
+                    {%endif%}
 
-            <h7>Progress duration: <h8 class="text-success">{{ task.status_set.first.task_start_date }} <h8 class="text-dark">-</h8>{{ task.status_set.first.task_end_date }}</h8></h7>
-            <!-- Button trigger modal --></br>
+                    <h7>Progress duration: <h8 class="text-success">{{ task.status_set.first.task_start_date }} <h8 class="text-dark">-</h8>{{ task.status_set.first.task_end_date }}</h8></h7>
+                    <!-- Button trigger modal --></br>
 
                 </div>
                 <div class="col-10">
                     <a href="" type="button" class="btn btn-primary bg-gradient float-end" data-toggle="modal" data-target="#exampleModal">
-                Update Status
-            </a>
+                        Update Status
+                    </a>
 
                 </div>
                 <div class="col-2">
                     <a href="" type="button" class="btn btn-danger bg-gradient float-start" data-toggle="modal" data-target="#exampleModal1">
-                Edit Status
-            </a>
+                        Edit Status
+                    </a>
 
                 </div>
             </div>
@@ -58,16 +58,16 @@
                         </div>
 
                         <form method="POST">
-                        <div class="modal-body">
-                            {% csrf_token %}
-                            <h7>Duration: <h8 class="text-success">{{ task.status_set.first.task_start_date }} <h8 class="text-dark">to</h8> {{ task.status_set.first.task_end_date }}</h8></h7>
-                            {{u_form|crispy}}
-                        </div>
-                        <div class="modal-footer">
-<!--                            <button type="button" class="btn btn-danger bg-gradient" data-dismiss="modal">Close</button>-->
-                            <button type="submit" class="btn btn-success bg-gradient">Update</button>
-                        </div>
-                            </form>
+                            <div class="modal-body">
+                                {% csrf_token %}
+                                <h7>Duration: <h8 class="text-success">{{ task.status_set.first.task_start_date }} <h8 class="text-dark">to</h8> {{ task.status_set.first.task_end_date }}</h8></h7>
+                                {{u_form|crispy}}
+                            </div>
+                            <div class="modal-footer">
+                                <!--                            <button type="button" class="btn btn-danger bg-gradient" data-dismiss="modal">Close</button>-->
+                                <button type="submit" class="btn btn-success bg-gradient">Update</button>
+                            </div>
+                        </form>
 
 
                     </div>
@@ -82,16 +82,16 @@
                         </div>
 
                         <form method="POST">
-                        <div class="modal-body">
-                            {% csrf_token %}
-                            <h7>Duration: <h8 class="text-success">{{ task.status_set.first.task_start_date }} <h8 class="text-dark">to</h8> {{ task.status_set.first.task_end_date }}</h8></h7>
-                            {{form|crispy}}
-                        </div>
-                        <div class="modal-footer">
-<!--                            <button type="button" class="btn btn-danger bg-gradient" data-dismiss="modal">Close</button>-->
-                            <button type="submit" class="btn btn-success bg-gradient">Edit</button>
-                        </div>
-                            </form>
+                            <div class="modal-body">
+                                {% csrf_token %}
+                                <h7>Duration: <h8 class="text-success">{{ task.status_set.first.task_start_date }} <h8 class="text-dark">to</h8> {{ task.status_set.first.task_end_date }}</h8></h7>
+                                {{form|crispy}}
+                            </div>
+                            <div class="modal-footer">
+                                <!--                            <button type="button" class="btn btn-danger bg-gradient" data-dismiss="modal">Close</button>-->
+                                <button type="submit" class="btn btn-success bg-gradient">Edit</button>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
@@ -107,9 +107,9 @@
 </br><div class="card">
     <div class="card-body">
 
- <h6 class="text-success text-center">
-     Task is Approved by You.
-</h6>
+        <h6 class="text-success text-center">
+            Task is Approved by You.
+        </h6>
     </div>
 </div>
 {% else %}

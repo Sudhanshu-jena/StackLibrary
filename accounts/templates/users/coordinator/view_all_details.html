@@ -6,20 +6,14 @@
 <div class="card">
     <div class="card-body">
         <div class="main">
-
-
             <h2 class="text-primary">Project ID: {{ obj.enroll }}</h2><hr>
-
-
-
-
             <h4 class="">Team: <h5 class="text-muted">{{ obj.team }}, {{ obj.batch }} Batch</h5></h4>
+
             {% for y in team %}
             {% if y.id == obj.team_id %}
+
             <div class="col-12">
                 <h5 class="">Team members are: <h6 class="text-muted">{% for x in y.members.all %} {{ x }}, {% endfor %}</h6></h5>
-
-
             </div>
 
             {% endif %}

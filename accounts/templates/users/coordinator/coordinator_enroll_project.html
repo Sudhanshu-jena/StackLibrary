@@ -6,34 +6,29 @@
     <div class="card-body">
         <legend class="border-bottom mb-4 text-uppercase ">Requested Details</legend>
         <div class="row">
-
             <div class="col-sm">
                 <h5 class="">Project Name:<span class="text-uppercase text-primary"> {{requested.requested_project}}</span></h5>
-
-                    <h6>Team Name: <span class="text-success">{{requested.team}}, </span></h6>
-                   <h6>Batch: <span class="text-success"> {{requested.batch}}</span></h6>
+                <h6>Team Name: <span class="text-success">{{requested.team}}, </span></h6>
+                <h6>Batch: <span class="text-success"> {{requested.batch}}</span></h6>
             </div>
-
-
         </div>
-
-
     </div>
 </div></br>
 <div class="card">
     <div class="card-body">
         <form method="POST">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4 text-uppercase">Enroll Project</legend>
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4 text-uppercase">Enroll Project</legend>
 
-                    {{ form|crispy }}
-                    {{ p_form|crispy }}
-                </fieldset></br>
-                <div class="form-group">
-                    <button class="btn btn-outline-success" type="submit">Enroll</button>
-                </div>
-            </form>
+                {{ form|crispy }}
+                {{ p_form|crispy }}
+
+            </fieldset></br>
+            <div class="form-group">
+                <button class="btn btn-outline-success" type="submit">Enroll</button>
+            </div>
+        </form>
 
     </div>
 </div>

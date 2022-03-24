@@ -2,14 +2,16 @@
 {% block content %}
 {% if user.is_authenticated and user.is_coordinator %}
 
-{% with user.coordinator.department as department %}
+
 {% for x in obj %}
-{% if x.department == department %}
+{% if x.department == user.coordinator.department and x.college == user.coordinator.college %}
+
 <div class="card mx-2 mt-2">
 
     {% with x.id as project %}
     {% for y in enroll %}
     {% if y.project_id == project %}
+
     <div class="card-body">
         <div>
             <h2 class="text-primary">Project: {{ y.project }}</h2>
@@ -20,8 +22,9 @@
             <h6 class="text-muted">Year: {{ y.batch }}</h6>
             <h6 class="text-muted">Enrolled on: {{ y.date_enrolled }}</h6>
         </div></br>
-        <a href="{% url 'update_enroll_view' y.id %}" class="btn btn-primary float-end">Edit Enroll Details</a>
+        <a href="{% url 'update_enroll_view' y.project_id %}" class="btn btn-primary float-end">Edit Enroll Details</a>
     </div><hr class="class-6 text-success" />
+
     {% endif %}
     {% endfor %}
     {% endwith %}
@@ -29,7 +32,7 @@
 </div>
 {% endif %}
 {% endfor %}
-{% endwith %}
+
 
 {% endif %}
 {% endblock content %}

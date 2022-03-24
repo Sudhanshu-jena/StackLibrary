@@ -143,7 +143,7 @@ class StudentProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        fields = ['phone_number', 'image', 'batch', 'department', 'div']
+        fields = ['phone_number', 'image', 'college', 'batch', 'department', 'div']
 
 
 class GuideProfileUpdateForm(forms.ModelForm):
@@ -151,7 +151,7 @@ class GuideProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Guide
-        fields = ['faculty_id', 'phone_number', 'image', 'department', 'designation', 'worked_experience']
+        fields = ['faculty_id', 'phone_number', 'image', 'college', 'department', 'designation', 'worked_experience']
 
 
 class HodProfileUpdateForm(forms.ModelForm):
@@ -159,7 +159,7 @@ class HodProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Hod
-        fields = ['faculty_id', 'phone_number', 'image', 'department']
+        fields = ['faculty_id', 'phone_number', 'image', 'college', 'department']
 
 
 class ProjectCreatorProfileUpdateForm(forms.ModelForm):
@@ -175,7 +175,7 @@ class CoordinatorProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Coordinator
-        fields = ['faculty_id', 'phone_number', 'image', 'department', 'designation']
+        fields = ['faculty_id', 'phone_number', 'image', 'college', 'department', 'designation']
 
 
 class IndustryMentorProfileUpdateForm(forms.ModelForm):
@@ -199,20 +199,18 @@ class ProjectUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ['project_name', 'project_description', 'department']
+        fields = ['project_name', 'project_description', 'department', 'college', 'batch']
 
 
 class TaskRegistrationForm(forms.ModelForm):
-    project = forms.ModelChoiceField(queryset=Project.objects.all())
     task_name = forms.CharField(max_length=80)
 
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = ['task_name', 'task_description', 'description', 'reference_file', 'Duration', 'task_percentage']
 
     def save(self, commit=True):
         task = super(TaskRegistrationForm, self).save(commit=False)
-        task.project = self.cleaned_data['project']
         task.task_name = self.cleaned_data['task_name']
         task.save()
 
@@ -223,8 +221,6 @@ class TaskRegistrationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(TaskRegistrationForm, self).__init__(*args, **kwargs)
-        self.fields['project'].widget.attrs['class'] = 'form-control'
-        self.fields['project'].widget.attrs['placeholder'] = 'Social Name'
         self.fields['task_name'].widget.attrs['class'] = 'form-control'
         self.fields['task_name'].widget.attrs['placeholder'] = 'Name'
 
@@ -235,7 +231,7 @@ class ProjectRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ['project_name', 'project_description', 'department']
+        fields = ['project_name', 'project_description', 'department', 'college', 'batch']
 
     def save(self, commit=True):
         Project = super(ProjectRegistrationForm, self).save(commit=False)
@@ -258,13 +254,44 @@ class EnrollForm(forms.ModelForm):
 
     class Meta:
         model = Enroll
+        fields = ['enroll', 'team', 'college', 'batch', 'duration', 'guide_or_industry_mentor', 'date_enrolled']
+
+
+class EnrollForm1(forms.ModelForm):
+    date_enrolled = forms.DateTimeField(widget=DateInput)
+
+    class Meta:
+        model = Enroll
         fields = '__all__'
+
+
+class SavedDataForm1(forms.ModelForm):
+    date_enrolled = forms.DateTimeField(widget=DateInput)
+
+    class Meta:
+        model = Enroll
+        fields = '__all__'
+
+
+class SavedDataForm(forms.ModelForm):
+    date_enrolled = forms.DateTimeField(widget=DateInput)
+
+    class Meta:
+        model = Enroll
+        fields = ['enroll', 'team', 'college', 'batch', 'duration', 'guide_or_industry_mentor', 'date_enrolled']
 
 
 class EnrollUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Enroll
+        fields = '__all__'
+
+
+class SavedDataUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = SavedData
         fields = '__all__'
 
 

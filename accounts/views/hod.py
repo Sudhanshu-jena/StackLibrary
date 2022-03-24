@@ -7,7 +7,16 @@ from .email_handler import send_verification_email
 
 def hod_login(request):
     obj = Project.objects.all()
-    context = {'obj': obj}
+    obj1 = Project.objects.filter(batch=11)
+    obj2 = Project.objects.filter(batch=6)
+    obj3 = Project.objects.filter(batch=5)
+    obj4 = Project.objects.filter(batch=4)
+    context = {'obj': obj,
+               'obj1': obj1,
+               'obj2': obj2,
+               'obj3': obj3,
+               'obj4': obj4,
+               }
 
     return render(request, "users/hod/home.html", context)
 

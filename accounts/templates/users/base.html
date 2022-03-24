@@ -155,11 +155,11 @@ div.content {
                 <div class="dropdown">
 
                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle" width="40" height="40" src="{{ user.industry_mentor.image.url }}">
+                        <img class="rounded-circle" width="40" height="40" src="{{ user.industrymentor.image.url }}">
                     </button>
 
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{% url 'industry_mentor_profile' %}"><img class="rounded-circle" width="40" height="40" src="{{ user.industry_mentor.image.url }}">  {{ user.username }}</a>
+                        <a class="dropdown-item" href="{% url 'industry_mentor_profile' %}"><img class="rounded-circle" width="40" height="40" src="{{ user.industrymentor.image.url }}">  {{ user.username }}</a>
 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{% url 'industry_mentor_profile' %}">Edit Profile</a>
@@ -219,15 +219,6 @@ div.content {
     </nav>
     {% if user.is_student %}
     <div class="sidebar border border-secondary d-flex flex-column flex-shrink-0 p-3 text-white bg-light" >
-        <!--  <a class="active" href="#home">Home</a>-->
-        <!--  <a href="#news">News</a>-->
-        <!--  <a href="#contact">Contact</a>-->
-        <!--  <a href="#about">About</a>-->
-        <!--      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">-->
-        <!--      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>-->
-        <!--      <span class="fs-4">Sidebar</span>-->
-        <!--    </a>-->
-        <!--    <hr>-->
 
         <ul class="nav nav-pills flex-column mb-auto" style="padding-top: 70px;">
             <li class="nav-item rounded bg-light">
@@ -264,18 +255,6 @@ div.content {
                 <strong>{{ user.first_name }}</strong>
             </button>
         </div>
-        <!--      <a href="#" class="d-flex align-items-center text-white dropdown-toggle rounded bg-dark" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">-->
-        <!--        <img src="{{ user.student.image.url }}" alt="" width="32" height="32" class="rounded-circle me-2">-->
-        <!--        <strong>{{ user.first_name }}</strong>-->
-        <!--      </a>-->
-        <!--      <ul class="dropdown-menu " aria-labelledby="dropdownUser1">-->
-        <!--        <li><a class="dropdown-item" href="#">New project...</a></li>-->
-        <!--        <li><a class="dropdown-item" href="#">Settings</a></li>-->
-        <!--        <li><a class="dropdown-item" href="#">Profile</a></li>-->
-        <!--        <li><hr class="dropdown-divider"></li>-->
-        <!--        <li><a class="dropdown-item" href="#">Sign out</a></li>-->
-        <!--      </ul>-->
-        <!--    </div>-->
     </div>
     {% elif user.is_project_creator %}
     <div class="sidebar border border-secondary d-flex flex-column flex-shrink-0 p-3 text-white bg-light" >
@@ -341,7 +320,7 @@ div.content {
             </li></br>
             {% if user.coordinator.department %}
             <li class="nav-item rounded bg-light">
-                <a href="{% url 'coordinator_report' user.coordinator.department_id %}" class="nav-link text-white">
+                <a href="{% url 'coordinator_report' user.coordinator.department_id user.coordinator.college_id %}" class="nav-link text-white">
                     <i class="fa fa-id-card"></i>
                     Report
                 </a>
@@ -443,8 +422,8 @@ div.content {
         <hr>
         <div class="dropdown">
             <button type="button" class="btn dropdown-toggle text-white rounded bg-primary w-100" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img class="rounded-circle" width="40" height="40" src="{{ user.industry_mentor.image.url }}">
-                <strong>{{ user.industrymentor.first_name }}</strong>
+                <img class="rounded-circle" width="40" height="40" src="{{ user.industrymentor.image.url }}">
+                <strong>{{ user.first_name }}</strong>
             </button>
         </div>
 

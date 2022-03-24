@@ -22,7 +22,7 @@ class _VerifyEmail:
     def __send_email(self, msg, useremail):
         subject = self.settings.get('subject')
         try:
-            send_mail(subject, strip_tags(msg), 'Stack Library <exampleyourmailid@gmail.com>',
+            send_mail(subject, strip_tags(msg), 'Stack Library <sudhansuprasad007@gmail.com>',
                       recipient_list=[useremail], html_message=msg,fail_silently=False)
             return True
         except (BadHeaderError, SMTPException):

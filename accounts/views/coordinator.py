@@ -113,17 +113,23 @@ def coordinator_assigned_project(request):
     return render(request, "users/coordinator/assigned_project.html", context)
 
 
-def coordinator_enroll_project(request, id):
+def coordinator_enroll_project(request, requested_project_id):
     if request.method == 'POST':
         form = EnrollForm(request.POST)
+        saved_data_form = SavedDataForm(request.POST)
         task = Task.objects.all()
-        requested = RequestedProject.objects.get(id=id)
+        requested = RequestedProject.objects.get(requested_project_id=requested_project_id)
         context = {'form': form, 'requested': requested}
-        if form.is_valid():
-            form.save()
+        if form.is_valid() and saved_data_form.is_valid():
+            fs = form.save()
+            fsd = saved_data_form.save()
+            fs.project_id = requested_project_id
+            fsd.project_id = requested_project_id
+            fs.save()
+            fsd.save()
             created = True
             form = EnrollForm()
-            requested = RequestedProject.objects.get(id=id)
+            requested = RequestedProject.objects.get(requested_project_id=requested_project_id)
             context = {
                 'created': created,
                 'form': form,
@@ -135,7 +141,7 @@ def coordinator_enroll_project(request, id):
             return render(request, 'users/coordinator/coordinator_enroll_project.html', context)
     else:
         form = EnrollForm()
-        requested = RequestedProject.objects.get(id=id)
+        requested = RequestedProject.objects.get(requested_project_id=requested_project_id)
         context = {
             'form': form,
             'requested': requested,
@@ -146,13 +152,15 @@ def coordinator_enroll_project(request, id):
 
 def coordinator_edit_project(request):
     if request.method == 'POST':
-        form = EnrollForm(request.POST)
+        form = EnrollForm1(request.POST)
+        saved_data_form = SavedDataForm1(request.POST)
         task = Task.objects.all()
         context = {'form': form}
-        if form.is_valid():
+        if form.is_valid() and saved_data_form.is_valid():
             form.save()
+            saved_data_form.save()
             created = True
-            form = EnrollForm()
+            form = EnrollForm1()
 
             context = {
                 'created': created,
@@ -163,22 +171,25 @@ def coordinator_edit_project(request):
         else:
             return render(request, 'users/coordinator/edit_project.html', context)
     else:
-        form = EnrollForm()
+        form = EnrollForm1()
         context = {
             'form': form,
         }
         return render(request, 'users/coordinator/edit_project.html', context)
 
 
-def update_enroll_view(request, id):
+def update_enroll_view(request, project_id):
     context = {}
 
-    obj = get_object_or_404(Enroll, id=id)
+    obj = get_object_or_404(Enroll, project_id=project_id)
+    obj1 = get_object_or_404(SavedData, project_id=project_id)
     form = EnrollUpdateForm(request.POST or None, instance=obj)
+    saved_data_update = SavedDataUpdateForm(request.POST or None, instance=obj1)
 
-    if form.is_valid():
+    if form.is_valid() and saved_data_update.is_valid():
         form.save()
-        return HttpResponseRedirect("/" + str(id) + '/update_enroll_view')
+        saved_data_update.save()
+        return HttpResponseRedirect("/" + str(348664613147686) + str(project_id) + str(786498490567823647467849) + '/update_enroll_view')
 
     context["form"] = form
 
@@ -187,24 +198,24 @@ def update_enroll_view(request, id):
 
 def coordinator_requested_project(request):
     obj = RequestedProject.objects.all()
-    context ={
-        'obj':obj,
+    context = {
+        'obj': obj,
     }
     return render(request, 'users/coordinator/requested_project.html', context)
 
 
-def coordinator_report(request, department_id):
-    enroll = Enroll.objects.all()
+def coordinator_report(request, department_id, college_id):
+    enroll = Enroll.objects.filter(college_id=college_id)
 
-    students = Student.objects.filter(department_id=department_id)
-    guides = Guide.objects.filter(department_id=department_id)
+    students = Student.objects.filter(department_id=department_id, college_id=college_id)
+    guides = Guide.objects.filter(department_id=department_id, college_id=college_id)
     mentors = IndustryMentor.objects.all()
-    hods = Hod.objects.filter(department_id=department_id)
-    coordinators = Coordinator.objects.filter(department_id=department_id)
+    hods = Hod.objects.filter(department_id=department_id, college_id=college_id)
+    coordinators = Coordinator.objects.filter(department_id=department_id, college_id=college_id)
     teams = Team.objects.all()
     total = students.count() + guides.count() + mentors.count() + hods.count() + coordinators.count()
     users = User.objects.all()
-    obj = Project.objects.filter(department_id=department_id)
+    obj = Project.objects.filter(department_id=department_id, college_id=college_id)
     tasks = Task.objects.all()
     statuss = Status.objects.all()
     t_task = 0
@@ -227,6 +238,7 @@ def coordinator_report(request, department_id):
     for d in enroll:
         if d.project in obj:
             d_enroll = d_enroll + 1
+
     datax2 = []
     labels = []
     label = []
@@ -266,7 +278,7 @@ def coordinator_report(request, department_id):
         'teams': teams,
         'label': label,
         'c_task': c_task,
-        'r_enroll': r_enroll,
+        'r_enroll':r_enroll,
         'completed': completed,
         'not_completed': not_completed,
         'datax2': datax2,
@@ -275,6 +287,346 @@ def coordinator_report(request, department_id):
     }
 
     return render(request, "users/coordinator/report.html", context)
+
+
+def coordinator_be_report(request, department_id, college_id):
+    enroll = Enroll.objects.filter(college_id=college_id, batch=11)
+
+    students = Student.objects.filter(department_id=department_id, college_id=college_id, batch=11)
+    guides = Guide.objects.filter(department_id=department_id, college_id=college_id)
+    mentors = IndustryMentor.objects.all()
+    hods = Hod.objects.filter(department_id=department_id, college_id=college_id)
+    coordinators = Coordinator.objects.filter(department_id=department_id, college_id=college_id)
+    teams = Team.objects.all()
+    total = students.count() + guides.count() + mentors.count() + hods.count() + coordinators.count()
+    users = User.objects.all()
+    obj = Project.objects.filter(department_id=department_id, college_id=college_id, batch=11)
+    tasks = Task.objects.all()
+    statuss = Status.objects.all()
+    t_task = 0
+    c_task = 0
+    for t in tasks:
+        for p in obj:
+            if t.project_id == p.id:
+                t_task = t_task + 1
+                for x in statuss:
+                    if x.task_id == t.id:
+                        if x.status == 'Done':
+                            c_task = c_task + 1
+
+    requested = RequestedProject.objects.all()
+    d_enroll = 0
+    r_enroll = 0
+    for r in requested:
+        if r.requested_project in obj:
+            r_enroll = r_enroll + 1
+    for d in enroll:
+        if d.project in obj:
+            d_enroll = d_enroll + 1
+
+    datax2 = []
+    labels = []
+    label = []
+    for d in enroll:
+        if d.project in obj:
+            datax1 = []
+            for y in tasks:
+                if y.project_id == d.project_id:
+                    for s in statuss:
+                        if s.task_id == y.id:
+                            if s.status == 'Done':
+                                datax1.append(y.task_percentage)
+            percentage = sum(datax1)
+            datax2.append(percentage)
+            labels.append(d.enroll)
+            for p in obj:
+                if d.project == p:
+                    label.append(p.project_name)
+    completed = 0
+
+    per = len(datax2)
+    if per != 0:
+        completed = (sum(datax2) / per)
+    not_completed = 100 - completed
+
+    context = {
+        'obj': obj,
+        'students': students,
+        'guides': guides,
+        'mentors': mentors,
+        'total': total,
+        'users': users,
+        'hods': hods,
+        'coordinators': coordinators,
+        't_task': t_task,
+        'd_enroll': d_enroll,
+        'teams': teams,
+        'label': label,
+        'c_task': c_task,
+        'r_enroll':r_enroll,
+        'completed': completed,
+        'not_completed': not_completed,
+        'datax2': datax2,
+        'labels': labels,
+
+    }
+
+    return render(request, "users/coordinator/be_report.html", context)
+
+
+def coordinator_te_report(request, department_id, college_id):
+    enroll = Enroll.objects.filter(college_id=college_id, batch=6)
+
+    students = Student.objects.filter(department_id=department_id, college_id=college_id, batch=6)
+    guides = Guide.objects.filter(department_id=department_id, college_id=college_id)
+    mentors = IndustryMentor.objects.all()
+    hods = Hod.objects.filter(department_id=department_id, college_id=college_id)
+    coordinators = Coordinator.objects.filter(department_id=department_id, college_id=college_id)
+    teams = Team.objects.all()
+    total = students.count() + guides.count() + mentors.count() + hods.count() + coordinators.count()
+    users = User.objects.all()
+    obj = Project.objects.filter(department_id=department_id, college_id=college_id, batch=6)
+    tasks = Task.objects.all()
+    statuss = Status.objects.all()
+    t_task = 0
+    c_task = 0
+    for t in tasks:
+        for p in obj:
+            if t.project_id == p.id:
+                t_task = t_task + 1
+                for x in statuss:
+                    if x.task_id == t.id:
+                        if x.status == 'Done':
+                            c_task = c_task + 1
+
+    requested = RequestedProject.objects.all()
+    d_enroll = 0
+    r_enroll = 0
+    for r in requested:
+        if r.requested_project in obj:
+            r_enroll = r_enroll + 1
+    for d in enroll:
+        if d.project in obj:
+            d_enroll = d_enroll + 1
+
+    datax2 = []
+    labels = []
+    label = []
+    for d in enroll:
+        if d.project in obj:
+            datax1 = []
+            for y in tasks:
+                if y.project_id == d.project_id:
+                    for s in statuss:
+                        if s.task_id == y.id:
+                            if s.status == 'Done':
+                                datax1.append(y.task_percentage)
+            percentage = sum(datax1)
+            datax2.append(percentage)
+            labels.append(d.enroll)
+            for p in obj:
+                if d.project == p:
+                    label.append(p.project_name)
+    completed = 0
+
+    per = len(datax2)
+    if per != 0:
+        completed = (sum(datax2) / per)
+    not_completed = 100 - completed
+
+    context = {
+        'obj': obj,
+        'students': students,
+        'guides': guides,
+        'mentors': mentors,
+        'total': total,
+        'users': users,
+        'hods': hods,
+        'coordinators': coordinators,
+        't_task': t_task,
+        'd_enroll': d_enroll,
+        'teams': teams,
+        'label': label,
+        'c_task': c_task,
+        'r_enroll':r_enroll,
+        'completed': completed,
+        'not_completed': not_completed,
+        'datax2': datax2,
+        'labels': labels,
+
+    }
+
+    return render(request, "users/coordinator/te_report.html", context)
+
+
+def coordinator_se_report(request, department_id, college_id):
+    enroll = Enroll.objects.filter(college_id=college_id, batch=5)
+
+    students = Student.objects.filter(department_id=department_id, college_id=college_id, batch=5)
+    guides = Guide.objects.filter(department_id=department_id, college_id=college_id)
+    mentors = IndustryMentor.objects.all()
+    hods = Hod.objects.filter(department_id=department_id, college_id=college_id)
+    coordinators = Coordinator.objects.filter(department_id=department_id, college_id=college_id)
+    teams = Team.objects.all()
+    total = students.count() + guides.count() + mentors.count() + hods.count() + coordinators.count()
+    users = User.objects.all()
+    obj = Project.objects.filter(department_id=department_id, college_id=college_id, batch=5)
+    tasks = Task.objects.all()
+    statuss = Status.objects.all()
+    t_task = 0
+    c_task = 0
+    for t in tasks:
+        for p in obj:
+            if t.project_id == p.id:
+                t_task = t_task + 1
+                for x in statuss:
+                    if x.task_id == t.id:
+                        if x.status == 'Done':
+                            c_task = c_task + 1
+
+    requested = RequestedProject.objects.all()
+    d_enroll = 0
+    r_enroll = 0
+    for r in requested:
+        if r.requested_project in obj:
+            r_enroll = r_enroll + 1
+    for d in enroll:
+        if d.project in obj:
+            d_enroll = d_enroll + 1
+
+    datax2 = []
+    labels = []
+    label = []
+    for d in enroll:
+        if d.project in obj:
+            datax1 = []
+            for y in tasks:
+                if y.project_id == d.project_id:
+                    for s in statuss:
+                        if s.task_id == y.id:
+                            if s.status == 'Done':
+                                datax1.append(y.task_percentage)
+            percentage = sum(datax1)
+            datax2.append(percentage)
+            labels.append(d.enroll)
+            for p in obj:
+                if d.project == p:
+                    label.append(p.project_name)
+    completed = 0
+
+    per = len(datax2)
+    if per != 0:
+        completed = (sum(datax2) / per)
+    not_completed = 100 - completed
+
+    context = {
+        'obj': obj,
+        'students': students,
+        'guides': guides,
+        'mentors': mentors,
+        'total': total,
+        'users': users,
+        'hods': hods,
+        'coordinators': coordinators,
+        't_task': t_task,
+        'd_enroll': d_enroll,
+        'teams': teams,
+        'label': label,
+        'c_task': c_task,
+        'r_enroll':r_enroll,
+        'completed': completed,
+        'not_completed': not_completed,
+        'datax2': datax2,
+        'labels': labels,
+
+    }
+
+    return render(request, "users/coordinator/se_report.html", context)
+
+
+def coordinator_fe_report(request, department_id, college_id):
+    enroll = Enroll.objects.filter(college_id=college_id, batch=4)
+
+    students = Student.objects.filter(department_id=department_id, college_id=college_id, batch=4)
+    guides = Guide.objects.filter(department_id=department_id, college_id=college_id)
+    mentors = IndustryMentor.objects.all()
+    hods = Hod.objects.filter(department_id=department_id, college_id=college_id)
+    coordinators = Coordinator.objects.filter(department_id=department_id, college_id=college_id)
+    teams = Team.objects.all()
+    total = students.count() + guides.count() + mentors.count() + hods.count() + coordinators.count()
+    users = User.objects.all()
+    obj = Project.objects.filter(department_id=department_id, college_id=college_id, batch=4)
+    tasks = Task.objects.all()
+    statuss = Status.objects.all()
+    t_task = 0
+    c_task = 0
+    for t in tasks:
+        for p in obj:
+            if t.project_id == p.id:
+                t_task = t_task + 1
+                for x in statuss:
+                    if x.task_id == t.id:
+                        if x.status == 'Done':
+                            c_task = c_task + 1
+
+    requested = RequestedProject.objects.all()
+    d_enroll = 0
+    r_enroll = 0
+    for r in requested:
+        if r.requested_project in obj:
+            r_enroll = r_enroll + 1
+    for d in enroll:
+        if d.project in obj:
+            d_enroll = d_enroll + 1
+
+    datax2 = []
+    labels = []
+    label = []
+    for d in enroll:
+        if d.project in obj:
+            datax1 = []
+            for y in tasks:
+                if y.project_id == d.project_id:
+                    for s in statuss:
+                        if s.task_id == y.id:
+                            if s.status == 'Done':
+                                datax1.append(y.task_percentage)
+            percentage = sum(datax1)
+            datax2.append(percentage)
+            labels.append(d.enroll)
+            for p in obj:
+                if d.project == p:
+                    label.append(p.project_name)
+    completed = 0
+
+    per = len(datax2)
+    if per != 0:
+        completed = (sum(datax2) / per)
+    not_completed = 100 - completed
+
+    context = {
+        'obj': obj,
+        'students': students,
+        'guides': guides,
+        'mentors': mentors,
+        'total': total,
+        'users': users,
+        'hods': hods,
+        'coordinators': coordinators,
+        't_task': t_task,
+        'd_enroll': d_enroll,
+        'teams': teams,
+        'label': label,
+        'c_task': c_task,
+        'r_enroll':r_enroll,
+        'completed': completed,
+        'not_completed': not_completed,
+        'datax2': datax2,
+        'labels': labels,
+
+    }
+
+    return render(request, "users/coordinator/fe_report.html", context)
 
 
 def coordinator_register(request):
